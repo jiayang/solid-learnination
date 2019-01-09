@@ -40,3 +40,8 @@ johalP -- 2019-01-09 13:15
 Touched all html files needed, added base template and
 extensions for index (landing page), login, and register
 ==============================================================
+
+rachlevskyM-- 2019-01-09 13:18
+--------------------------------------------------------------
+Worked on starting the flask app
+==============================================================
