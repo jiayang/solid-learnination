@@ -4,7 +4,7 @@ import sqlite3
 db = sqlite3.connect("../data/database.db")
 c = db.cursor()
 #create users
-command = "CREATE TABLE users(id INTEGER PRIMARY KEY AUTOINCREMENT,username TEXT UNIQUE,password_hash TEXT)"
+command = "CREATE TABLE users(username TEXT ,password TEXT)"
 c.execute(command)
 
 

@@ -24,4 +24,4 @@ def get_full_schedule(league):
 
     return games['fullgameschedule']['gameentry']
 
-print(get_full_schedule('nba')[0])
+#print(get_full_schedule('nba')[0])

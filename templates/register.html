@@ -19,16 +19,16 @@ Register
         </div>
       {% endfor %}
 
-    <form action="/signup" method = "POST">
+    <form action="/register" method = "POST">
       Enter a new username: <br>
-      <input type="text" name="username" placeholder="Must be unique"> <br>
+      <input type="text" name="reg_username" placeholder="Must be unique"> <br>
       Password: <br>
-      <input type="password" name="password" placeholder="Password"> <br>
+      <input type="password" name="reg_password" placeholder="Password"> <br>
       Confirm password: <br>
-      <input type="password" name="confirm" placeholder="Must match last field"> <br> <br>
-      <button type="submit" class="btn btn-outline-light"> Sign Up </button>
-      <a href="/">
-        <button type="button" class="btn btn-outline-light"> Cancel </button>
+      <input type="password" name="reg_confirm" placeholder="Must match last field"> <br> <br>
+      <button type="submit" class="btn btn-primary"> Sign Up </button>
+      <a href="/login">
+        <button type="button" class="btn btn-primary"> Cancel </button>
       </a>
     </form>
 
