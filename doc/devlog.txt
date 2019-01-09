@@ -34,3 +34,9 @@ rachlevskyM -- 2019-01-08 23:55
 --------------------------------------------------------------
 Expanded on the uses of accounts in design doc
 ==============================================================
+
+johalP -- 2019-01-09 13:15
+--------------------------------------------------------------
+Touched all html files needed, added base template and
+extensions for index (landing page), login, and register
+==============================================================
