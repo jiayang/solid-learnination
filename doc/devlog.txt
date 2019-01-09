@@ -32,5 +32,5 @@ Added Flask basics and filler files
 
 rachlevskyM -- 2019-01-08 23:55
 --------------------------------------------------------------
-Expanded on the uses of accounds in design doc
+Expanded on the uses of accounts in design doc
 ==============================================================
