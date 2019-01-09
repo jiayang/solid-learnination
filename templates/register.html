@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}
+Register
+{% endblock %}
+
+  {% block content %}
+
+    {% if password_error %}
+      <div class="alert alert-danger" role="alert">
+        {{password_error}}
+      </div>
+    {% endif %}
+
+    {% set msgs = get_flashed_messages() %}
+      {% for each in msgs %}
+        <div class="alert alert-danger" role="alert">
+          {{each}}
+        </div>
+      {% endfor %}
+
+    <form action="/signup" method = "POST">
+      Enter a new username: <br>
+      <input type="text" name="username" placeholder="Must be unique"> <br>
+      Password: <br>
+      <input type="password" name="password" placeholder="Password"> <br>
+      Confirm password: <br>
+      <input type="password" name="confirm" placeholder="Must match last field"> <br> <br>
+      <button type="submit" class="btn btn-outline-light"> Sign Up </button>
+      <a href="/">
+        <button type="button" class="btn btn-outline-light"> Cancel </button>
+      </a>
+    </form>
+
+{% endblock %}

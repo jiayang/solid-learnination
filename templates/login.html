@@ -1,10 +1,27 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Just Be A Good Sport</title>
-</head>
+<!-- template for login form -->
 
-<body>
-    HIIII
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+
+  {% set msgs = get_flashed_messages() %}
+  {% for each in msgs %}
+  <div class="alert alert-danger" role="alert">
+    {{each}}
+  </div>
+  {% endfor %}
+
+  <form action="/login" method="POST">
+    <input type="text" name="username" placeholder="Username"><br>
+    <input type="password" name="password" placeholder="Password"><br><br>
+    <button type="submit" class="btn btn-outline-light"> Login </button>
+    <a href="/">
+      <button type="button" class="btn btn-outline-light"> Cancel </button>
+    </a>
+  </form>
+
+{% endblock %}
