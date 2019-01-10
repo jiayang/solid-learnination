@@ -77,7 +77,33 @@ def home():
     #checks if the user is not logged in
     if 'user' not in session:
         return redirect(url_for('login'))
-    return render_template('home.html')
+    return render_template(
+        'home.html',
+        name=session['user'],
+        favorites=#get users favorites from db
+        )
+
+@app.route("/sport")
+def sport():
+    return render_template(
+        'teamList.html',
+        #get the team names from api
+        )
+
+@app.route("/team")
+def team():
+    return render_template(
+        'teamPage.html',
+        #get teams info and stats etc from api
+        )
+
+@app.route("/bets")
+def bets():
+    return render_template(
+        'bets.html',
+        )
+
+
 
 
 if __name__ == "__main__":
