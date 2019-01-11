@@ -83,12 +83,34 @@ def home():
         favorites=#get users favorites from db
         )
 
-@app.route("/sport")
-def sport():
+@app.route("/nba")
+def nba():
     return render_template(
         'teamList.html',
         #get the team names from api
         )
+
+@app.route("/nfl")
+def nfl():
+    return render_template(
+        'teamList.html',
+        #get the team names from api
+        )
+
+@app.route("/nhl")
+def nhl():
+    return render_template(
+        'teamList.html',
+        #get the team names from api
+        )
+
+@app.route("/mlb")
+def mlb():
+    return render_template(
+        'teamList.html',
+        #get the team names from api
+        )
+
 
 @app.route("/team")
 def team():
