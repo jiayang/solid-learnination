@@ -68,3 +68,9 @@ johalP-- 2019-01-10 13:18
 Changed some templates to be in accordance with our proposed
 changes
 ==============================================================
+
+johalP-- 2019-01-11 13:15
+--------------------------------------------------------------
+Forgot to push yesterday, now changed home/favorites templates 
+to be in accordance with our proposed changes
+==============================================================
