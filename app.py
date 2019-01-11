@@ -83,36 +83,40 @@ def home():
         favorites=#get users favorites from db
         )
 
-@app.route("/nba")
+@app.route("/nba", methods=['GET', 'POST'])
 def nba():
     return render_template(
         'teamList.html',
+        schedule = util.msf.get_full_schedule('nba'),        
         #get the team names from api
         )
 
-@app.route("/nfl")
+@app.route("/nfl", methods=['GET', 'POST'])
 def nfl():
     return render_template(
         'teamList.html',
+        schedule = util.msf.get_full_schedule('nfl'),        
         #get the team names from api
         )
 
-@app.route("/nhl")
+@app.route("/nhl", methods=['GET', 'POST'])
 def nhl():
     return render_template(
         'teamList.html',
+        schedule = util.msf.get_full_schedule('nhl'),
         #get the team names from api
         )
 
-@app.route("/mlb")
+@app.route("/mlb", methods=['GET', 'POST'])
 def mlb():
     return render_template(
         'teamList.html',
+        schedule = util.msf.get_full_schedule('mlb'),
         #get the team names from api
         )
 
 
-@app.route("/team")
+@app.route("/team", methods=['GET', 'POST'])
 def team():
     return render_template(
         'teamPage.html',
