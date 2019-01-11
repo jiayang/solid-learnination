@@ -80,7 +80,7 @@ def home():
     return render_template(
         'home.html',
         name=session['user'],
-        favorites=#get users favorites from db
+        favorites=#util.favorites.get_favorites(name)
         )
 
 @app.route("/nba", methods=['GET', 'POST'])
