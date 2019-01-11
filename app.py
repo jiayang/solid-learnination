@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, session, url_for, redirect, f
 from passlib.hash import md5_crypt
 import os
 
-from util import db
+from util import dbcommands as db
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
