@@ -24,6 +24,7 @@ wheels/
 .installed.cfg
 *.egg
 MANIFEST
+data/keys.json
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -126,4 +127,3 @@ ehthumbs.db
 # Filenames with special characters
 **/*[\\/\:;*?!'"<>|$º•¶§∞¢£]*
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/data/keys.json
