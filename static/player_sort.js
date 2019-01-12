@@ -1,16 +1,4 @@
-var fibonacci = (n) => {
-    var first = 0;
-    var second = 1;
-    for (i = 0; i < n; i++) {
-	var temp = second;
-	second += first;
-	first = temp;
-    }
-    console.log(first);
-    return first;
-}
-
-//i is the index of the value to sort the rows by
+//Sorts the DOM tablerow elements by the innerhtml of a specified column
 var row_sort = (rows,sort_col) => {
     new_rows = [];
     for (var i = 1; i < rows.length; i++) {
@@ -20,6 +8,7 @@ var row_sort = (rows,sort_col) => {
     return new_rows;
 }
 
+//Comparing function for the sort used in row_sort(), compares two rows by their inner htmls
 var compare = (a,b) => {
     var aVal = a[0].cells[a[1]+1].innerHTML;
     var bVal = b[0].cells[b[1]+1].innerHTML;
@@ -39,6 +28,7 @@ var compare = (a,b) => {
 all_stats = ['min','pts','fgm','fga','reb','ast','stl','blk','plsmns']
 
 //Not in a for loop because can't figure out how to reference the iterating value in the for loop within the inner function
+//i.e if looping with j, I want to add row_sort(rows,j), but j ends up being 9 for every function instead of j = 0,1,2,3,4,5,6,7,8,9
 document.getElementById(all_stats[0]).addEventListener("click" , function () {
     var tbl = document.getElementById('nba_boxscore')
     var rows = tbl.getElementsByTagName('tr');

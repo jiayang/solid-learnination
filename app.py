@@ -8,8 +8,10 @@ from util import msf
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
 LEAGUES = ['nba','nfl','nhl','mlb']
+
 @app.route('/')
 def index():
+    '''Shows the user the login and register buttons'''
     if "user" in session:
         return redirect(url_for('home'))
     return render_template('landing.html')
@@ -17,15 +19,16 @@ def index():
 
 @app.route('/login')
 def login():
+    '''Lets the user log in'''
     if 'user' in session:
         return redirect(url_for('home'))
     return render_template('login.html')
 
 @app.route('/auth', methods = ["POST"])
 def auth():
+    '''Intermediate to authenticate login by user'''
     if 'user' in session:
         return redirect(url_for('home'))
-    '''Intermediate to authenticate login by user'''
     # # # Authenticate
     username_input = request.form.get("username")
     password_input = request.form.get("password")
@@ -46,9 +49,9 @@ def auth():
 
 @app.route('/register', methods = ["GET", "POST"])
 def register():
+    '''Adding users to the database'''
     if 'user' in session:
         return redirect(url_for('home'))
-    '''Adding users to the database'''
     if request.form.get("reg_username") != None:
         r_username = request.form.get("reg_username")
         r_password = request.form.get("reg_password")
@@ -86,6 +89,7 @@ def home():
 
 @app.route("/<league>", methods=['GET', 'POST'])
 def league_page(league):
+    '''The pages for the league, which shows the list of teams'''
     if league not in LEAGUES:
         return redirect(url_for('home'))
     return render_template(

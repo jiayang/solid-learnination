@@ -5,11 +5,14 @@ import base64
 
 
 def msf_request(url):
+    '''Wrapper for requesting a URL from MySportsFeeds'''
     q = Request(url)
     q.add_header('Authorization', 'Basic ' + base64.b64encode('{}:{}'.format(API_KEY,API_PASS).encode('utf-8')).decode('ascii'))
     return json.loads(urlopen(q).read())
 
+
 def get_full_schedule(league):
+    '''Get the full schedule for an entire league. NFL returns playoff and regular season games.'''
     endpoint = 'full_game_schedule'
     if league == 'nfl':
         type = ['2019-playoff','2018-regular']
@@ -28,17 +31,18 @@ def get_full_schedule(league):
     return games['fullgameschedule']['gameentry']
 
 def reorder_schedule_by_team(schedule,team):
+    '''Returns a list of the games within the schedule being played by specified team'''
     games = []
     for game in schedule:
-        print(game['homeTeam']['Name'])
         team_name = team.split('-')[1].lower()
-        print(team_name)
         awayTeam = ''.join(game['awayTeam']['Name'].lower().split(' '))
         homeTeam = ''.join(game['homeTeam']['Name'].lower().split(' '))
         if homeTeam == team_name or awayTeam == team_name:
             games += [game]
     return games
+
 def reorder_schedule_by_date(schedule):
+    '''Returns a dictionary of the games within the schedule, ordered by dates'''
     games = dict()
     for game in schedule:
         if game['date'] in games:
@@ -48,6 +52,7 @@ def reorder_schedule_by_date(schedule):
     return games
 
 def all_teams(league):
+    '''Returns a list of all the teams in a league'''
     if league == 'nfl':
         type = '2018-regular'
     if league == 'nba' or league == 'nhl':
@@ -57,9 +62,10 @@ def all_teams(league):
 
     endpoint = 'overall_team_standings'
     teams = msf_request(URL.format(league,type,endpoint))
-
     return teams['overallteamstandings']['teamstandingsentry']
+
 def get_all_player_stats_by_team(league,team):
+    '''Returns a list of all the players in a specific team'''
     if league == 'nfl':
         type = '2018-regular'
     if league == 'nba' or league == 'nhl':
@@ -72,6 +78,14 @@ def get_all_player_stats_by_team(league,team):
     players = msf_request(URL.format(league,type,endpoint) + parameters)
 
     return players['cumulativeplayerstats']['playerstatsentry']
+
+
+
+
+
+
+
+
 
 keys = ''
 if __name__ == '__main__':
