@@ -84,4 +84,5 @@ Added more templates: basic team template and league template
 jiayangC-- 2019-01-12 17:00
 --------------------------------------------------------------
 Added each team showing all the games for the season on their page
+Rerouted the team pages into /league/team/specificteam instead of /league/specificteam in preparation for players also
 ==============================================================

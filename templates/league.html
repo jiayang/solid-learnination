@@ -12,7 +12,7 @@
   {% for teamentry in teams %}
       {% set team_city = teamentry['team']['City'].split(' ') %}
       {% set team_name = teamentry['team']['Name'].split(' ') %}
-  <a href="/{{league}}/{{team_city|join('')}}-{{teamentry['team']['Name']}}"> {{teamentry['team']['Name']}} </a>
+  <a href="/{{league}}/team/{{team_city|join('')}}-{{teamentry['team']['Name']}}"> {{teamentry['team']['Name']}} </a>
   {% endfor %}
 
   <!-- list of games -->

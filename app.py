@@ -94,7 +94,7 @@ def nba():
         #get the team names from api
         )
 
-@app.route("/nba/<team_name>")
+@app.route("/nba/team/<team_name>")
 def nba_team(team_name):
     return render_template(
         'teamPage.html',
@@ -130,14 +130,6 @@ def mlb():
         teams = msf.all_teams('mlb'),
         league = 'mlb'
         #get the team names from api
-        )
-
-
-@app.route("/team", methods=['GET', 'POST'])
-def team():
-    return render_template(
-        'teamPage.html',
-        #get teams info and stats etc from api
         )
 
 @app.route("/bets")
