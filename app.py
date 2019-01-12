@@ -80,14 +80,14 @@ def home():
     return render_template(
         'home.html',
         name=session['user'],
-        favorites=#util.favorites.get_favorites(name)
+        favorites=0#util.favorites.get_favorites(name)
         )
 
 @app.route("/nba", methods=['GET', 'POST'])
 def nba():
     return render_template(
         'teamList.html',
-        schedule = util.msf.get_full_schedule('nba'),        
+        schedule = util.msf.get_full_schedule('nba'),
         #get the team names from api
         )
 
@@ -95,7 +95,7 @@ def nba():
 def nfl():
     return render_template(
         'teamList.html',
-        schedule = util.msf.get_full_schedule('nfl'),        
+        schedule = util.msf.get_full_schedule('nfl'),
         #get the team names from api
         )
 
@@ -129,6 +129,11 @@ def bets():
         'bets.html',
         )
 
+@app.route("/test")
+def wot():
+    return render_template(
+        'nba_game_stats.html'
+    )
 
 
 

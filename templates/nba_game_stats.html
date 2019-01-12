@@ -1,0 +1,47 @@
+<!-- template for individual game stats for the NBA -->
+
+{% extends "base.html" %}
+
+{% block title %}
+Always Be a Good Sport
+{% endblock %}
+
+<!-- NEEDS HEAVY STYLING -->
+
+{% block content %}
+    <table id="nba_boxscore">
+        <tr>
+            <th> Player </th>
+            <th id="min"> MIN </th>
+            <th id="pts"> PTS </th>
+            <th id="fgm"> FGM </th>
+            <th id="fga"> FGA </th>
+            <th id="reb"> REB </th>
+            <th id="ast"> AST </th>
+            <th id="stl"> STL </th>
+            <th id="blk"> BLK </th>
+            <th id="plsmns"> +/- </th>
+        </tr>
+
+        {# Players #}
+        {% for i in range(10) %} {# instead of range(10) it should end up as range(len(players)) #}
+        <tr>
+            <td> Player Name </td>
+            <td> {{i%9}} </td> {# Mins #}
+            <td> {{i+1%9}} </td> {# PTS #}
+            <td> {{i+2%9}} </td> {# FGM #}
+            <td> {{i+3%9}} </td> {# FGA #}
+            <td> {{i+4%9}} </td> {# REB #}
+            <td> {{i+5%9}} </td> {# AST #}
+            <td> {{i+6%9}} </td> {# STL #}
+            <td> {{i+7%9}} </td> {# BLK #}
+            <td> {{i+8%9}} </td> {# +/- #}
+        </tr>
+        {% endfor %}
+    </table>
+
+    <script src='../static/player_sort.js'></script>
+
+
+
+{% endblock %}
