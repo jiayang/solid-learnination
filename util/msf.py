@@ -35,6 +35,15 @@ def schedule_by_date(schedule):
             games[game['date']] = [game]
     return games
 
+def all_teams(league):
+    if league == 'nfl':
+        type = '2018-regular'
+    if league == 'nba' or league == 'nhl':
+        type = '2018-2019-regular'
+    if league == 'mlb':
+        type = '2019-regular'
 
+    endpoint = 'overall_team_standings'
+    teams = msf_request(URL.format(league,type,endpoint))
 
-print(schedule_by_date(get_full_schedule('nfl'))['2019-01-05'])
+    return teams['overallteamstandings']['teamstandingsentry']

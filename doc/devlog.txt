@@ -78,4 +78,5 @@ jiayangC-- 2019-01-11 23:08
 --------------------------------------------------------------
 Added a basic statsheet with JavaScript sorting to prioritize specific stats
 Deleted unnecessary db commands file
+Added more templates: basic team template and league template
 ==============================================================

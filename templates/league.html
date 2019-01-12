@@ -9,5 +9,10 @@
 {% block content %}
 
   <!-- list of teams -->
+  {% for teamentry in teams %}
+  <a href="/{{league}}/{{teamentry['team']['Name']}}"> {{teamentry['team']['Name']}} </a>
+  {% endfor %}
+
+  <!-- list of games -->
 
 {% endblock %}

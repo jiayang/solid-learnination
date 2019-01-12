@@ -89,14 +89,25 @@ def nba():
     return render_template(
         'league.html',
         schedule = msf.get_full_schedule('nba'),
+        teams = msf.all_teams('nba'),
+        league = 'nba'
         #get the team names from api
         )
+
+@app.route("/nba/<team_name>")
+def nba_team(team_name):
+    return render_template(
+        'teamPage.html',
+        team = team_name.lower()
+    )
 
 @app.route("/nfl", methods=['GET', 'POST'])
 def nfl():
     return render_template(
         'league.html',
         schedule = msf.get_full_schedule('nfl'),
+        teams = msf.all_teams('nfl'),
+        league = 'nfl'
         #get the team names from api
         )
 
@@ -105,6 +116,8 @@ def nhl():
     return render_template(
         'league.html',
         schedule = msf.get_full_schedule('nhl'),
+        teams = msf.all_teams('nhl'),
+        league = 'nhl'
         #get the team names from api
         )
 
@@ -113,6 +126,8 @@ def mlb():
     return render_template(
         'league.html',
         schedule = msf.get_full_schedule('mlb'),
+        teams = msf.all_teams('mlb'),
+        league = 'mlb'
         #get the team names from api
         )
 
@@ -135,7 +150,6 @@ def wot():
     return render_template(
         'nba_game_stats.html'
     )
-
 
 
 if __name__ == "__main__":
