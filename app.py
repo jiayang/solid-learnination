@@ -98,7 +98,8 @@ def nba():
 def nba_team(team_name):
     return render_template(
         'teamPage.html',
-        team = team_name.lower()
+        team = team_name.lower(),
+        games = msf.reorder_schedule_by_team(msf.get_full_schedule('nba'),team_name)
     )
 
 @app.route("/nfl", methods=['GET', 'POST'])

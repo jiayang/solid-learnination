@@ -80,3 +80,8 @@ Added a basic statsheet with JavaScript sorting to prioritize specific stats
 Deleted unnecessary db commands file
 Added more templates: basic team template and league template
 ==============================================================
+
+jiayangC-- 2019-01-12 17:00
+--------------------------------------------------------------
+Added each team showing all the games for the season on their page
+==============================================================

@@ -8,7 +8,9 @@ Always Be a Good Sport
 
 {% block content %}
 
-{{team}}
-
-
+    {{team}} <br>
+    {% for game in games %}
+    {{game['homeTeam']['City'] + ' ' + game['homeTeam']['Name'] + ' vs. ' + game['awayTeam']['City'] + ' ' + game['awayTeam']['Name']}}
+    <br>
+    {% endfor %}
 {% endblock %}

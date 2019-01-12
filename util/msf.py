@@ -2,10 +2,7 @@ from urllib.request import Request,urlopen
 import json
 import base64
 
-keys = json.loads(open('data/keys.json','r').read())
-API_KEY = keys['mysportsfeeds']
-API_PASS = keys['msf_password']
-URL = 'https://api.mysportsfeeds.com/v1.0/pull/{}/{}/{}.json' # sports type (nba,nfl,nhl,mlb) ; season type ; endpoint
+
 
 def msf_request(url):
     q = Request(url)
@@ -26,7 +23,18 @@ def get_full_schedule(league):
 
     return games['fullgameschedule']['gameentry']
 
-def schedule_by_date(schedule):
+def reorder_schedule_by_team(schedule,team):
+    games = []
+    for game in schedule:
+        print(game['homeTeam']['Name'])
+        team_name = team.split('-')[1].lower()
+        print(team_name)
+        awayTeam = ''.join(game['awayTeam']['Name'].lower().split(' '))
+        homeTeam = ''.join(game['homeTeam']['Name'].lower().split(' '))
+        if homeTeam == team_name or awayTeam == team_name:
+            games += [game]
+    return games
+def reorder_schedule_by_date(schedule):
     games = dict()
     for game in schedule:
         if game['date'] in games:
@@ -47,3 +55,25 @@ def all_teams(league):
     teams = msf_request(URL.format(league,type,endpoint))
 
     return teams['overallteamstandings']['teamstandingsentry']
+def get_all_player_stats_by_team(league,team):
+    if league == 'nfl':
+        type = '2018-regular'
+    if league == 'nba' or league == 'nhl':
+        type = '2018-2019-regular'
+    if league == 'mlb':
+        type = '2019-regular'
+
+    endpoint = 'cumulative_player_stats'
+    parameters = '?team=' + team
+    players = msf_request(URL.format(league,type,endpoint) + parameters)
+
+    return players['cumulativeplayerstats']['playerstatsentry']
+
+keys = ''
+if __name__ == '__main__':
+    keys = json.loads(open('../data/keys.json','r').read())
+else:
+    keys = json.loads(open('data/keys.json','r').read())
+API_KEY = keys['mysportsfeeds']
+API_PASS = keys['msf_password']
+URL = 'https://api.mysportsfeeds.com/v1.0/pull/{}/{}/{}.json' # sports type (nba,nfl,nhl,mlb) ; season type ; endpoint
