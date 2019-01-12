@@ -7,7 +7,7 @@ from util import msf
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
-
+LEAGUES = ['nba','nfl','nhl','mlb']
 @app.route('/')
 def index():
     if "user" in session:
@@ -84,53 +84,30 @@ def home():
         favorites=0#util.favorites.get_favorites(name)
         )
 
-@app.route("/nba", methods=['GET', 'POST'])
-def nba():
+@app.route("/<league>", methods=['GET', 'POST'])
+def league_page(league):
+    if league not in LEAGUES:
+        return redirect(url_for('home'))
     return render_template(
         'league.html',
-        schedule = msf.get_full_schedule('nba'),
-        teams = msf.all_teams('nba'),
-        league = 'nba'
+        schedule = msf.get_full_schedule(league),
+        teams = msf.all_teams(league),
+        league = league
         #get the team names from api
         )
 
-@app.route("/nba/team/<team_name>")
-def nba_team(team_name):
+@app.route("/<league>/team/<team_name>")
+def teams(league,team_name):
+    if league not in LEAGUES:
+        return redirect(url_for('home'))
+    league_games = msf.get_full_schedule(league)
+    games = msf.reorder_schedule_by_team(league_games,team_name)
     return render_template(
         'teamPage.html',
         team = team_name.lower(),
-        games = msf.reorder_schedule_by_team(msf.get_full_schedule('nba'),team_name)
+        games = games
     )
 
-@app.route("/nfl", methods=['GET', 'POST'])
-def nfl():
-    return render_template(
-        'league.html',
-        schedule = msf.get_full_schedule('nfl'),
-        teams = msf.all_teams('nfl'),
-        league = 'nfl'
-        #get the team names from api
-        )
-
-@app.route("/nhl", methods=['GET', 'POST'])
-def nhl():
-    return render_template(
-        'league.html',
-        schedule = msf.get_full_schedule('nhl'),
-        teams = msf.all_teams('nhl'),
-        league = 'nhl'
-        #get the team names from api
-        )
-
-@app.route("/mlb", methods=['GET', 'POST'])
-def mlb():
-    return render_template(
-        'league.html',
-        schedule = msf.get_full_schedule('mlb'),
-        teams = msf.all_teams('mlb'),
-        league = 'mlb'
-        #get the team names from api
-        )
 
 @app.route("/bets")
 def bets():

@@ -10,14 +10,18 @@ def msf_request(url):
     return json.loads(urlopen(q).read())
 
 def get_full_schedule(league):
+    endpoint = 'full_game_schedule'
     if league == 'nfl':
-        type = '2019-playoff'
+        type = ['2019-playoff','2018-regular']
+        regular = msf_request(URL.format(league,type[0],endpoint))
+        playoff = msf_request(URL.format(league,type[1],endpoint))
+        return regular['fullgameschedule']['gameentry'] + playoff['fullgameschedule']['gameentry']
     if league == 'nba' or league == 'nhl':
         type = '2018-2019-regular'
     if league == 'mlb':
         type = '2019-regular'
 
-    endpoint = 'full_game_schedule'
+
 
     games = msf_request(URL.format(league,type,endpoint))
 
