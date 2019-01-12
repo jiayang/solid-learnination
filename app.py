@@ -3,6 +3,7 @@ from passlib.hash import md5_crypt
 import os
 
 from util import dbcommands as db
+from util import msf
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
@@ -86,32 +87,32 @@ def home():
 @app.route("/nba", methods=['GET', 'POST'])
 def nba():
     return render_template(
-        'teamList.html',
-        schedule = util.msf.get_full_schedule('nba'),
+        'league.html',
+        schedule = msf.get_full_schedule('nba'),
         #get the team names from api
         )
 
 @app.route("/nfl", methods=['GET', 'POST'])
 def nfl():
     return render_template(
-        'teamList.html',
-        schedule = util.msf.get_full_schedule('nfl'),
+        'league.html',
+        schedule = msf.get_full_schedule('nfl'),
         #get the team names from api
         )
 
 @app.route("/nhl", methods=['GET', 'POST'])
 def nhl():
     return render_template(
-        'teamList.html',
-        schedule = util.msf.get_full_schedule('nhl'),
+        'league.html',
+        schedule = msf.get_full_schedule('nhl'),
         #get the team names from api
         )
 
 @app.route("/mlb", methods=['GET', 'POST'])
 def mlb():
     return render_template(
-        'teamList.html',
-        schedule = util.msf.get_full_schedule('mlb'),
+        'league.html',
+        schedule = msf.get_full_schedule('mlb'),
         #get the team names from api
         )
 
