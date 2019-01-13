@@ -91,4 +91,5 @@ Generalized league routes to clean up code
 jiayangC-- 2019-01-12 20:00
 --------------------------------------------------------------
 Team page now shows the images of each player, except for NFL which will be done if we have time remaining after finishing
+The scoreboard the games are now interactive with javascript. the user can sort by any of the headers.
 ==============================================================

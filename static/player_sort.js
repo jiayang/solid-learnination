@@ -27,14 +27,28 @@ var compare = (a,b) => {
 
 all_stats = ['player','min','pts','fgm','fga','reb','ast','stl','blk','plsmns']
 
+states = ['↑','↓']
 
 for (var i = 0; i < 20; i++) {
     document.getElementById(all_stats[i % 10] + Math.floor(i/10)).addEventListener("click" , function (){
         var tbl = this.parentNode.parentNode //TABLE
         var rows = tbl.getElementsByTagName('tr');
         var new_rows = row_sort(rows,parseInt(this.cellIndex))
+
+        if (this.innerHTML[this.innerHTML.length-1] == '↑') {
+            new_rows = new_rows.reverse()
+            this.innerHTML = this.innerHTML.substring(0,this.innerHTML.length-1) + '↓'
+        } else {
+            this.innerHTML = this.innerHTML.substring(0,this.innerHTML.length-1) + '↑'
+        }
+
         for (var i = 0; i < new_rows.length; i++) {
             rows[0].parentNode.insertBefore(new_rows[i][0], rows[0].nextSibling);
+        }
+        for (var i = 0; i < rows[0].cells.length; i++) {
+            if (rows[0].cells[i] != this) {
+                rows[0].cells[i].innerHTML = rows[0].cells[i].innerHTML.replace('↑','').replace('↓','')
+            }
         }
     });
 }
