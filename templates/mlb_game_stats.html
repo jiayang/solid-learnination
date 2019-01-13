@@ -1,4 +1,4 @@
-<!-- template for individual game stats for the NBA -->
+<!-- template for individual game stats for the MLB -->
 
 {% extends "base.html" %}
 
@@ -11,7 +11,7 @@ Always Be a Good Sport
 {% block content %}
     {% for i in range(2) %}
         {{boxscore[['homeName','awayName'][i]]}} <br>
-        <table id="{{'nba_boxscore' + i|string}}">
+        <table id="{{'mlb_boxscore' + i|string}}">
             <tr>
                 {% for j in range(10) %}
                 <th id="{{j|string + i|string}}"> {{['Player','MIN','PTS','FGM','FGA','REB','AST','STL','BLK','+/-'][j]}} </th>

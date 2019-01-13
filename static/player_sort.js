@@ -25,12 +25,11 @@ var compare = (a,b) => {
     return 0;
 }
 
-all_stats = ['player','min','pts','fgm','fga','reb','ast','stl','blk','plsmns']
 
 states = ['↑','↓']
 
 for (var i = 0; i < 20; i++) {
-    document.getElementById(all_stats[i % 10] + Math.floor(i/10)).addEventListener("click" , function (){
+    document.getElementById("" + i % 10 + "" + Math.floor(i/10)).addEventListener("click" , function (){
         var tbl = this.parentNode.parentNode //TABLE
         var rows = tbl.getElementsByTagName('tr');
         var new_rows = row_sort(rows,parseInt(this.cellIndex))

@@ -1,0 +1,70 @@
+<!-- template for individual game stats for the NFL -->
+
+{% extends "base.html" %}
+
+{% block title %}
+Always Be a Good Sport
+{% endblock %}
+
+<!-- NEEDS HEAVY STYLING -->
+
+{% block content %}
+    {% for i in range(2) %}
+        {{boxscore[['homeName','awayName'][i]]}} <br>
+        <table id="{{'nfl_boxscore' + i|string}}">
+            <tr>
+                {% for j in range(10) %}
+                <th id="{{j|string + i|string}}"> {{['Player','PASS COMPLETED','PASS ATTEMPTS','YDS','TD','SACKS','TFL','TOTAL TACKLES','FUM','TGT'][j]}} </th>
+                {% endfor %}
+            </tr>
+
+            {# Scores #}
+
+            {% for player in boxscore[['homeTeam','awayTeam'][i]][['homePlayers','awayPlayers'][i]]['playerEntry'] %}
+            <tr>
+                <td> {{player['player']['FirstName'] + ' ' + player['player']['LastName']}} </td>
+                {% for h in ['PassCompletions','PassAttempts','yds','tds','Sacks','TacklesForLoss','TackleTotal','Fumbles','Targets'] %}
+                {% if h in player['stats'] %}
+                <td> {{player['stats'][h]['#text']}} </td>
+                {% elif h == 'yds' %}
+                    {% if 'PassAttempts' in player['stats'] %}
+                        {% set total = namespace(t = 0) %}
+                        {% for stat in ['PassYards','RushYards','RecYards'] %}
+                            {% set total.t = total.t + player['stats'][stat]['#text']|int %}
+                        {% endfor %}
+                        <td> {{total.t}} </td>
+                    {% else %}
+                        {% set total = namespace(t = 0) %}
+                        {% for stat in ['SackYds','IntYds','StuffYds','KrYds','PrYds'] %}
+                            {% set total.t = total.t + player['stats'][stat]['#text']|int %}
+                        {% endfor %}
+                        <td> {{total.t}} </td>
+                    {% endif %}
+                {% elif h == 'tds' %}
+                    {% if 'PassAttempts' in player['stats'] %}
+                        {% set total = namespace(t=0) %}
+                        {% for stat in ['PassTD','RushTD','RecTD','FumTD','IntTD','KrTD','PrTD'] %}
+                            {% set total.t = total.t + player['stats'][stat]['#text']|int %}
+                        {% endfor %}
+                        <td> {{total.t}} </td>
+                    {% else %}
+                        {% set total = namespace(t=0) %}
+                        {% for stat in ['IntTD','FumTD','KrTD','PrTD'] %}
+                            {% set total.t = total.t + player['stats'][stat]['#text']|int %}
+                        {% endfor %}
+                        <td> {{total.t}} </td>
+                    {% endif %}
+                {% else %}
+                    <td> 0 </td>
+                {% endif %}
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    {% endfor %}
+
+    <script src='../../static/player_sort.js'></script>
+
+
+
+{% endblock %}

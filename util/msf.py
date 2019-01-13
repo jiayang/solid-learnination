@@ -105,10 +105,15 @@ def get_boxscore(league,game_id):
 
     endpoint = 'game_boxscore'
     parameters = '?gameid=' + game_id
-    boxscore = msf_request(URL.format(league,type,endpoint) + parameters)
-
+    try:
+        boxscore = msf_request(URL.format(league,type,endpoint) + parameters)
+    except:
+        boxscore = None
     if boxscore == None and league == 'nfl':
-        boxscore = msf_request(URL.format(league,'2018-regular',endpoint) + parameters)
+        try:
+            boxscore = msf_request(URL.format(league,'2018-regular',endpoint) + parameters)
+        except:
+            boxscore = None
     if boxscore == None:
         return None
     nb = dict()
@@ -120,7 +125,6 @@ def get_boxscore(league,game_id):
     nb[homeTeam] = boxscore['gameboxscore']['homeTeam']
     nb['homeTeam'] = nb[homeTeam]
     nb['homeName'] = boxscore['gameboxscore']['game']['homeTeam']['City'] + ' ' + boxscore['gameboxscore']['game']['homeTeam']['Name']
-
     return nb
 
 

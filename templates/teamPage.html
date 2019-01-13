@@ -12,7 +12,12 @@ Always Be a Good Sport
 
     <!-- List of all the team's games -->
     {% for game in games %}
+    {% if league == 'nba' %}
     <a href="../game/{{game['id']}}">{{game['homeTeam']['City'] + ' ' + game['homeTeam']['Name'] + ' vs. ' + game['awayTeam']['City'] + ' ' + game['awayTeam']['Name']}}</a>
+    {% else %}
+    {% set game_id = game['date'].split('-') %}
+    <a href="../game/{{game_id|join('') + '-' + game['awayTeam']['Abbreviation'] + '-' + game['homeTeam']['Abbreviation']}}">{{game['homeTeam']['City'] + ' ' + game['homeTeam']['Name'] + ' vs. ' + game['awayTeam']['City'] + ' ' + game['awayTeam']['Name']}}</a>
+    {% endif %}
     <br>
     {% endfor %}
     <brrrrr>

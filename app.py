@@ -117,12 +117,29 @@ def teams(league,team_name):
 
 @app.route("/<league>/game/<game_id>")
 def game(league,game_id):
+    boxscore = msf.get_boxscore(league,game_id)
+    if boxscore == None:
+        return render_template(
+        'game_not_found.html'
+        )
     if league == 'nba':
-        boxscore = msf.get_boxscore(league,game_id)
-        if boxscore == None:
-            return redirect(url_for('home'))
         return render_template(
         'nba_game_stats.html',
+        boxscore = boxscore
+        )
+    if league =='nhl':
+        return render_template(
+        'nhl_game_stats.html',
+        boxscore = boxscore
+        )
+    if league == 'mlb':
+        return render_template(
+        'mlb_game_stats.html',
+        boxscore = boxscore
+        )
+    if league == 'nfl':
+        return render_template(
+        'nfl_game_stats.html',
         boxscore = boxscore
         )
 

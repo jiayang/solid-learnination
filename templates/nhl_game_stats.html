@@ -1,0 +1,46 @@
+<!-- template for individual game stats for the NHL -->
+
+{% extends "base.html" %}
+
+{% block title %}
+Always Be a Good Sport
+{% endblock %}
+
+<!-- NEEDS HEAVY STYLING -->
+
+{% block content %}
+    {% for i in range(2) %}
+        {{boxscore[['homeName','awayName'][i]]}} <br>
+        <table id="{{'nhl_boxscore' + i|string}}">
+            <tr>
+                {% for j in range(10) %}
+                <th id="{{j|string + i|string}}"> {{['Player','PTS','AST','HAT','GOALS','SHOTS','BLK','F/O W','F/O L','+/-'][j]}} </th>
+                {% endfor %}
+            </tr>
+
+            {# Scores #}
+
+            {% for player in boxscore[['homeTeam','awayTeam'][i]][['homePlayers','awayPlayers'][i]]['playerEntry'] %}
+            <tr>
+                <td> {{player['player']['FirstName'] + ' ' + player['player']['LastName']}} </td>
+                <td> {{player['stats']['Points']['#text']}} </td>
+                <td> {{player['stats']['Assists']['#text']}} </td>
+                <td> {{player['stats']['HatTricks']['#text']}} </td>
+                <td> {{player['stats']['Goals']['#text']}} </td>
+                {% for h in ['Shots','BlockedShots','FaceoffWins','FaceoffLosses','PlusMinus'] %}
+                {% if h in player['stats'] %}
+                <td> {{player['stats'][h]['#text']}} </td>
+                {% else %}
+                <td> 0 </td>
+                {% endif %}
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    {% endfor %}
+
+    <script src='../../static/player_sort.js'></script>
+
+
+
+{% endblock %}
