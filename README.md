@@ -29,13 +29,13 @@ $ source path/to/virtual/env/Scripts/activate #For Windows
 $ pip install -r requirements.txt
 ```
 
-5. Procure API keys for the APIs listed by following the instructions [below](https://github.com/jiayang/solid-learnination#api).
+5. Procure API keys for the APIs listed by following the instructions [below](https://github.com/jiayang/solid-learnination#apis).
 
 6. Change the `keys.json` file in the /data by adding your API keys as shown below:
 ```
 {
   "mysportsfeeds" : "<INSERT_YOUR_API_KEY>",
-  "msf_password" : "<YOUR_API_KEY_PASSWORD>"
+  "msf_password" : "<YOUR_MYSPORTSFEEDS_ACCOUNT_PASSWORD>"
 }
 ```
 
