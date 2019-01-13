@@ -116,8 +116,10 @@ def get_boxscore(league,game_id):
     homeTeam = ''.join(boxscore['gameboxscore']['game']['homeTeam']['Name'].lower().split(' '))
     nb[awayTeam] = boxscore['gameboxscore']['awayTeam']
     nb['awayTeam'] = nb[awayTeam]
+    nb['awayName'] = boxscore['gameboxscore']['game']['awayTeam']['City'] + ' ' + boxscore['gameboxscore']['game']['awayTeam']['Name']
     nb[homeTeam] = boxscore['gameboxscore']['homeTeam']
     nb['homeTeam'] = nb[homeTeam]
+    nb['homeName'] = boxscore['gameboxscore']['game']['homeTeam']['City'] + ' ' + boxscore['gameboxscore']['game']['homeTeam']['Name']
 
     return nb
 
