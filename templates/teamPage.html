@@ -12,7 +12,7 @@ Always Be a Good Sport
 
     <!-- List of all the team's games -->
     {% for game in games %}
-    {{game['homeTeam']['City'] + ' ' + game['homeTeam']['Name'] + ' vs. ' + game['awayTeam']['City'] + ' ' + game['awayTeam']['Name']}}
+    <a href="../game/{{game['id']}}">{{game['homeTeam']['City'] + ' ' + game['homeTeam']['Name'] + ' vs. ' + game['awayTeam']['City'] + ' ' + game['awayTeam']['Name']}}</a>
     <br>
     {% endfor %}
     <brrrrr>

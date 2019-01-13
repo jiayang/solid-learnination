@@ -115,6 +115,18 @@ def teams(league,team_name):
         players = players
     )
 
+@app.route("/<league>/game/<game_id>")
+def game(league,game_id):
+    if league == 'nba':
+        boxscore = msf.get_boxscore(league,game_id)
+        if boxscore == None:
+            return redirect(url_for('home'))
+        return render_template(
+        'nba_game_stats.html',
+        boxscore = boxscore
+        )
+
+
 
 @app.route("/bets")
 def bets():

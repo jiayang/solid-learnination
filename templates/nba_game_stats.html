@@ -9,38 +9,35 @@ Always Be a Good Sport
 <!-- NEEDS HEAVY STYLING -->
 
 {% block content %}
-    <table id="nba_boxscore">
-        <tr>
-            <th> Player </th>
-            <th id="min"> MIN </th>
-            <th id="pts"> PTS </th>
-            <th id="fgm"> FGM </th>
-            <th id="fga"> FGA </th>
-            <th id="reb"> REB </th>
-            <th id="ast"> AST </th>
-            <th id="stl"> STL </th>
-            <th id="blk"> BLK </th>
-            <th id="plsmns"> +/- </th>
-        </tr>
+    {% for i in range(2) %}
+        {{['homeTeam','awayTeam'][i]}} <br>
+        <table id="{{'nba_boxscore' + i|string}}">
+            <tr>
+                {% for j in range(10) %}
+                <th id="{{['player','min','pts','fgm','fga','reb','ast','stl','blk','plsmns'][j] + i|string}}"> {{['Player','MIN','PTS','FGM','FGA','REB','AST','STL','BLK','+/-'][j]}} </th>
+                {% endfor %}
+            </tr>
 
-        {# Players #}
-        {% for i in range(10) %} {# instead of range(10) it should end up as range(len(players)) #}
-        <tr>
-            <td> Player Name </td>
-            <td> {{i%9}} </td> {# Mins #}
-            <td> {{i+1%9}} </td> {# PTS #}
-            <td> {{i+2%9}} </td> {# FGM #}
-            <td> {{i+3%9}} </td> {# FGA #}
-            <td> {{i+4%9}} </td> {# REB #}
-            <td> {{i+5%9}} </td> {# AST #}
-            <td> {{i+6%9}} </td> {# STL #}
-            <td> {{i+7%9}} </td> {# BLK #}
-            <td> {{i+8%9}} </td> {# +/- #}
-        </tr>
-        {% endfor %}
-    </table>
+            {# Scores #}
 
-    <script src='../static/player_sort.js'></script>
+            {% for player in boxscore[['homeTeam','awayTeam'][i]][['homePlayers','awayPlayers'][i]]['playerEntry'] %}
+            <tr>
+                <td> {{player['player']['FirstName'] + ' ' + player['player']['LastName']}} </td>
+                <td> {{(((player['stats']['MinSeconds']['#text']|int) / 60)|string)[:4]}} </td> {# Mins #}
+                <td> {{player['stats']['Pts']['#text']}} </td> {# PTS #}
+                <td> {{player['stats']['FgMade']['#text']}} </td> {# FGM #}
+                <td> {{player['stats']['FgAtt']['#text']}} </td> {# FGA #}
+                <td> {{player['stats']['Reb']['#text']}} </td> {# REB #}
+                <td> {{player['stats']['Ast']['#text']}} </td> {# AST #}
+                <td> {{player['stats']['Stl']['#text']}} </td> {# STL #}
+                <td> {{player['stats']['Blk']['#text']}} </td> {# BLK #}
+                <td> {{player['stats']['PlusMinus']['#text']}} </td> {# +/- #}
+            </tr>
+            {% endfor %}
+        </table>
+    {% endfor %}
+
+    <script src='../../static/player_sort.js'></script>
 
 
 

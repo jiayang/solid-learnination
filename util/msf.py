@@ -94,8 +94,32 @@ def get_all_players_by_team(league,team):
 
     return players['activeplayers']['playerentry']
 
+def get_boxscore(league,game_id):
+    '''Returns the boxscore of a game'''
+    if league == 'nfl':
+        type = '2019-playoff'
+    if league == 'nba' or league == 'nhl':
+        type = '2018-2019-regular'
+    if league == 'mlb':
+        type = '2019-regular'
 
+    endpoint = 'game_boxscore'
+    parameters = '?gameid=' + game_id
+    boxscore = msf_request(URL.format(league,type,endpoint) + parameters)
 
+    if boxscore == None and league == 'nfl':
+        boxscore = msf_request(URL.format(league,'2018-regular',endpoint) + parameters)
+    if boxscore == None:
+        return None
+    nb = dict()
+    awayTeam = ''.join(boxscore['gameboxscore']['game']['awayTeam']['Name'].lower().split(' '))
+    homeTeam = ''.join(boxscore['gameboxscore']['game']['homeTeam']['Name'].lower().split(' '))
+    nb[awayTeam] = boxscore['gameboxscore']['awayTeam']
+    nb['awayTeam'] = nb[awayTeam]
+    nb[homeTeam] = boxscore['gameboxscore']['homeTeam']
+    nb['homeTeam'] = nb[homeTeam]
+
+    return nb
 
 
 
