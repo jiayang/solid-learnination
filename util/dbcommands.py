@@ -48,6 +48,31 @@ def get_username(id):
     db.close()
     return name[0][0]
 
+
+
+def add_favorite(username, data):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    command = 'INSERT INTO favorites VALUES(?, ?)'
+    c.execute(command, (username, data))
+    db.close()
+    
+
+
+def get_favorites(username):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    try:
+        command =  "SELECT * FROM favorites WHERE username=?"
+        c.execute(command, (username,))
+        results = c.fetchall()
+        favorites = [i[1].split('-----') for i in results]
+        favorites.reverse()
+    except:
+        favorites = []
+    db.close()
+    return favorites
+
 # MAKE TABLES AND DATABASE IF THEY DONT EXIST
 db = sqlite3.connect(DB_FILE)
 c = db.cursor()

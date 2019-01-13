@@ -81,10 +81,11 @@ def home():
     #checks if the user is not logged in
     if 'user' not in session:
         return redirect(url_for('login'))
+    name=session['user']
     return render_template(
         'home.html',
-        name=session['user'],
-        favorites=0#util.favorites.get_favorites(name)
+        name=name,
+        favorites=db.get_favorites(name)
         )
 
 @app.route("/<league>", methods=['GET', 'POST'])
@@ -99,6 +100,19 @@ def league_page(league):
         league = league
         #get the team names from api
         )
+
+
+@app.route('/favorite', methods=['POST'])
+def favorite():
+    if 'data' not in request.form:
+        return redirect('/')
+    data = request.form['data']
+    user = session['user']
+    db.add_favorite(user, data)
+    print(data)
+    return redirect('/home')
+
+
 
 @app.route("/<league>/team/<team_name>")
 def teams(league,team_name):

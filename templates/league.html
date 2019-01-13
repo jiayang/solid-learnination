@@ -12,7 +12,17 @@
   {% for teamentry in teams %}
       {% set team_city = teamentry['team']['City'].split(' ') %}
       {% set team_name = teamentry['team']['Name'].split(' ') %}
-  <a href="/{{league}}/team/{{team_city|join('')}}-{{teamentry['team']['Name']}}"> {{teamentry['team']['Name']}} </a> <br>
+  <a href="/{{league}}/team/{{team_city|join('')}}-{{teamentry['team']['Name']}}"> {{teamentry['team']['Name']}} </a>
+  <form action="/favorite" method="post" accept-charset="utf-8">
+    <input
+      type="hidden"
+      name="data"
+      id="data"
+      value="{{teamentry['team']['name']}}">
+    <button type="submit" class="btn btn-outline-light">
+      Favorite
+    </button>
+  </form> <br>
   {% endfor %}
 
   <!-- list of games -->
