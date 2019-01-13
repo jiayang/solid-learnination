@@ -87,3 +87,8 @@ Added each team showing all the games for the season on their page
 Rerouted the team pages into /league/team/specificteam instead of /league/specificteam in preparation for players also
 Generalized league routes to clean up code
 ==============================================================
+
+jiayangC-- 2019-01-12 20:00
+--------------------------------------------------------------
+Team page now shows the images of each player, except for NFL which will be done if we have time remaining after finishing
+==============================================================

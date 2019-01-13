@@ -106,10 +106,13 @@ def teams(league,team_name):
         return redirect(url_for('home'))
     league_games = msf.get_full_schedule(league)
     games = msf.reorder_schedule_by_team(league_games,team_name)
+    players = msf.get_all_players_by_team(league,team_name)
     return render_template(
         'teamPage.html',
+        league = league.lower(),
         team = team_name.lower(),
-        games = games
+        games = games,
+        players = players
     )
 
 

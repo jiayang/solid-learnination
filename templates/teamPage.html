@@ -15,6 +15,23 @@ Always Be a Good Sport
     {{game['homeTeam']['City'] + ' ' + game['homeTeam']['Name'] + ' vs. ' + game['awayTeam']['City'] + ' ' + game['awayTeam']['Name']}}
     <br>
     {% endfor %}
+    <brrrrr>
+    <!-- lists of players and their images -->
+    {% for player in players %}
+        {{player['player']['FirstName'] + player['player']['LastName']}}
+        {% if not 'externalMapping' in player['player'] %}
+            <br>
+        {% elif league == 'nba' %}
+            <img src="https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/{{player['player']['externalMapping']['ID']}}.png">
+        {% elif league == 'nfl' %}
+            <br> {# TODO Retrieving NFL player's headshots is messy and complicated, because for some reason the photo ID does not match the player ID #}
+        {% elif league == 'nhl' %}
+            <img src="https://nhl.bamcontent.com/images/headshots/current/168x168/{{player['player']['externalMapping']['ID']}}.jpg">
+        {% else %}
+            <img src="https://securea.mlb.com/mlb/images/players/head_shot/{{player['player']['externalMapping']['ID']}}.jpg">
+        {% endif %}
+    <br>
+    {% endfor %}
 
 
 {% endblock %}

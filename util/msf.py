@@ -65,7 +65,7 @@ def all_teams(league):
     return teams['overallteamstandings']['teamstandingsentry']
 
 def get_all_player_stats_by_team(league,team):
-    '''Returns a list of all the players in a specific team'''
+    '''Returns a list of all the players' stats in a specific team'''
     if league == 'nfl':
         type = '2018-regular'
     if league == 'nba' or league == 'nhl':
@@ -79,8 +79,20 @@ def get_all_player_stats_by_team(league,team):
 
     return players['cumulativeplayerstats']['playerstatsentry']
 
+def get_all_players_by_team(league,team):
+    '''Returns a list of all the players in a specific team with their images'''
+    if league == 'nfl':
+        type = '2018-regular'
+    if league == 'nba' or league == 'nhl':
+        type = '2018-2019-regular'
+    if league == 'mlb':
+        type = '2019-regular'
 
+    endpoint = 'active_players'
+    parameters = '?team=' + team
+    players = msf_request(URL.format(league,type,endpoint) + parameters)
 
+    return players['activeplayers']['playerentry']
 
 
 
