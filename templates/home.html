@@ -45,7 +45,11 @@ Home
     <div class="col-9">
       <div class="tab-content">
         <!-- favorites -->
-        FAVORITES GO HERE
+        {% for fav in favorites %}
+	<div class="team_icon">
+	  {{fav[0]}}
+	 </div>
+	{% endfor %}
       </div>
     </div>
   </div>

@@ -55,6 +55,7 @@ def add_favorite(username, data):
     c = db.cursor()
     command = 'INSERT INTO favorites VALUES(?, ?)'
     c.execute(command, (username, data))
+    db.commit()
     db.close()
     
 
@@ -62,21 +63,21 @@ def add_favorite(username, data):
 def get_favorites(username):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    try:
-        command =  "SELECT * FROM favorites WHERE username=?"
-        c.execute(command, (username,))
-        results = c.fetchall()
-        favorites = [i[1].split('-----') for i in results]
-        favorites.reverse()
-    except:
-        favorites = []
+    command =  "SELECT * FROM favorites WHERE username=?"
+    c.execute(command, (username,))
+    results = c.fetchall()
+    favorites = [i[1].split('-----') for i in results]
     db.close()
     return favorites
+
+
+
 
 # MAKE TABLES AND DATABASE IF THEY DONT EXIST
 db = sqlite3.connect(DB_FILE)
 c = db.cursor()
 commands = []
 commands += ["CREATE TABLE IF NOT EXISTS users(username TEXT, password TEXT)"]
+commands += ["CREATE TABLE IF NOT EXISTS favorites(username TEXT, favorites TEXT)"]
 for command in commands:
     c.execute(command)

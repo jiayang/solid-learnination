@@ -104,12 +104,11 @@ def league_page(league):
 
 @app.route('/favorite', methods=['POST'])
 def favorite():
-    if 'data' not in request.form:
+    if 'favdata' not in request.form:
         return redirect('/')
-    data = request.form['data']
+    data = request.form['favdata']
     user = session['user']
     db.add_favorite(user, data)
-    print(data)
     return redirect('/home')
 
 

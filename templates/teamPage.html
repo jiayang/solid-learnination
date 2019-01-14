@@ -13,7 +13,7 @@ Always Be a Good Sport
     <!-- List of all the team's games -->
     {% for game in games %}
     {% if league == 'nba' %}
-
+    <div class="team_icon"> Raptors/nba </div>
         {% set img_url_away = namespace(url="http://cdn.nba.net/assets/logos/teams/secondary/web/%s.svg"|format(game['awayTeam']['Abbreviation'])) %}
         {% set game_id = namespace(url=game['id']) %}
         {% if game['homeTeam']['Abbreviation'] == 'OKL' %}
