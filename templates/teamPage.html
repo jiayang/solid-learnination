@@ -38,7 +38,8 @@ Always Be a Good Sport
             {% set img_url_home = namespace(url="https://www.mlbstatic.com/team-logos/%s.svg"|format(game['homeTeam']['ID'])) %}
             {% set img_url_away = namespace(url="https://www.mlbstatic.com/team-logos/%s.svg"|format(game['awayTeam']['ID'])) %}
         {% elif league == 'nhl' %}
-
+            {% set img_url_home = namespace(url="https://www-league.nhlstatic.com/images/logos/teams-current-circle/%s.svg"|format(game['homeTeam']['ID'])) %}
+            {% set img_url_away = namespace(url="https://www-league.nhlstatic.com/images/logos/teams-current-circle/%s.svg"|format(game['awayTeam']['ID'])) %}
         {% endif %}
         {% set game_id = namespace(url=game['date'].split('-')|join('') + '-' + game['awayTeam']['Abbreviation'] + '-' + game['homeTeam']['Abbreviation']) %}
     {% endif %}
