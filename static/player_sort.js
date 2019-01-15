@@ -30,15 +30,15 @@ states = ['↑','↓']
 
 for (var i = 0; i < 20; i++) {
     document.getElementById("" + i % 10 + "" + Math.floor(i/10)).addEventListener("click" , function (){
-        var tbl = this.parentNode.parentNode //TABLE
+        var tbl = this.parentNode.parentNode.parentNode //TABLE
         var rows = tbl.getElementsByTagName('tr');
         var new_rows = row_sort(rows,parseInt(this.cellIndex))
 
         if (this.innerHTML[this.innerHTML.length-1] == '↑') {
             new_rows = new_rows.reverse()
-            this.innerHTML = this.innerHTML.substring(0,this.innerHTML.length-1) + '↓'
+            this.innerHTML = this.innerHTML.replace('↑','') + ' ↓'
         } else {
-            this.innerHTML = this.innerHTML.substring(0,this.innerHTML.length-1) + '↑'
+            this.innerHTML = this.innerHTML.replace('↓','') + ' ↑'
         }
 
         for (var i = 0; i < new_rows.length; i++) {
@@ -46,7 +46,7 @@ for (var i = 0; i < 20; i++) {
         }
         for (var i = 0; i < rows[0].cells.length; i++) {
             if (rows[0].cells[i] != this) {
-                rows[0].cells[i].innerHTML = rows[0].cells[i].innerHTML.replace('↑','').replace('↓','')
+                rows[0].cells[i].innerHTML = rows[0].cells[i].innerHTML.replace('↑',' ').replace('↓',' ')
             }
         }
     });

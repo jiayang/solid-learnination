@@ -10,14 +10,17 @@ Always Be a Good Sport
 
 {% block content %}
     {% for i in range(2) %}
-        {{boxscore[['homeName','awayName'][i]]}} <br>
-        <table id="{{'mlb_boxscore' + i|string}}">
+        <div class="row team_heading">
+            {{boxscore[['homeName','awayName'][i]]}}
+        </div>
+        <table class="table" id="{{'mlb_boxscore' + i|string}}">
+            <thead class="thead-dark">
             <tr>
                 {% for j in range(10) %}
                 <th id="{{j|string + i|string}}"> {{['Player','MIN','PTS','FGM','FGA','REB','AST','STL','BLK','+/-'][j]}} </th>
                 {% endfor %}
             </tr>
-
+            </thead>
             {# Scores #}
 
             {% for player in boxscore[['homeTeam','awayTeam'][i]][['homePlayers','awayPlayers'][i]]['playerEntry'] %}

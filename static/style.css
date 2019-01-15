@@ -7,8 +7,17 @@
     text-decoration: none;
 }
 
+.team_heading {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bolder;
+
+}
 .game_date {
     text-align: center;
     font-size: 10pt;
     padding: 20px;
+}
+.btn-primary-outline {
+  background-color: transparent;
 }
