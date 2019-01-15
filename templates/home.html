@@ -46,8 +46,9 @@ Home
       <div class="col-9">
 	<div class="tab-content">
           <!-- favorites -->
+          <h2> Favorites </h2>
           <div>
-            NBA
+            <h3>NBA</h3>
             {% for fav in favorites['nba'] %}
             <!-- The team_icon class needs the innerHTML to be "TEAMID OR ABBREVIATION/LEAGUE/TEAMDISPLAYNAME" -->
             <!-- NBA and NFL use ABBREVIATIONS while MLB AND NHL use TEAMID -->
@@ -55,19 +56,19 @@ Home
 	    {% endfor %}
           </div>
           <div>
-            NFL
+            <h3>NFL</h3>
             {% for fav in favorites['nfl'] %}
     	    <div class="team_icon">{{fav[0]}}</div>
 	    {% endfor %}
           </div>
           <div>
-            NHL
+            <h3>NHL</h3>
             {% for fav in favorites['nhl'] %}
     	    <div class="team_icon">{{fav[0]}}</div>
 	    {% endfor %}
           </div>
           <div>
-            MLB
+            <h3>MLB</h3>
             {% for fav in favorites['mlb'] %}
     	    <div class="team_icon">{{fav[0]}}</div>
 	    {% endfor %}

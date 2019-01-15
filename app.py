@@ -139,7 +139,7 @@ def teams(league,team_name):
     return render_template(
         'teamPage.html',
         league = league.lower(),
-        team = team_name.lower(),
+        team = team_name,
         games = games,
         players = players
     )

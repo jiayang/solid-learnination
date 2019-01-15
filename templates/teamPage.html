@@ -8,7 +8,7 @@ Always Be a Good Sport
 
 {% block content %}
 
-    {{team}} <br>
+    {{team.split('-')|join(' ')}} <br>
 
     <!-- List of all the team's games -->
     {% for game in games %}
