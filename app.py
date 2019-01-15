@@ -131,7 +131,7 @@ def unfavorite():
 def teams(league,team_name):
     if 'user' not in session:
         return redirect(url_for('login'))
-    if league not in LEAGUES:
+    if league.lower() not in LEAGUES:
         return redirect(url_for('home'))
     league_games = msf.get_full_schedule(league)
     games = msf.reorder_schedule_by_team(league_games,team_name)
