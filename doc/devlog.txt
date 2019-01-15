@@ -110,4 +110,5 @@ jiayangC-- 2019-01-14 19:26
 Added favorites to show on homepage, with a picture
 Added unfavoriting
 Styled the boxscores
+Fixed bug with some team's images not showing
 ==============================================================

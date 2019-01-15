@@ -34,7 +34,7 @@ def reorder_schedule_by_team(schedule,team):
     '''Returns a list of the games within the schedule being played by specified team'''
     games = []
     for game in schedule:
-        team_name = team.split('-')[1].lower()
+        team_name = team.split('-')[1].lower().replace('.','').replace(' ','')
         awayTeam = ''.join(game['awayTeam']['Name'].lower().split(' '))
         homeTeam = ''.join(game['homeTeam']['Name'].lower().split(' '))
         if homeTeam == team_name or awayTeam == team_name:
@@ -89,7 +89,8 @@ def get_all_players_by_team(league,team):
         type = '2019-regular'
 
     endpoint = 'active_players'
-    parameters = '?team=' + team
+
+    parameters = '?team=' + team.replace('.','').replace(' ','')
     players = msf_request(URL.format(league,type,endpoint) + parameters)
 
     return players['activeplayers']['playerentry']

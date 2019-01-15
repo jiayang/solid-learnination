@@ -8,16 +8,15 @@ for (var i = 0; i < team_icons.length; i++) {
     for (var j = 0; j < data.length; j++) {
 
         var args = data[j].split('/');
-	console.log(args[0]);
         var league = args[1];
         var team = args[0];
 	var team2 = args[2].split(' ').join('-').split('.').join('').toLowerCase();
 	var name = args[0].split(' ').join('');
 	var city = args[2].substring(0,args[2].length -  args[0].length);
-	
-	var team3 = city.split(' ').join('')  + '_' +  name;
-        var url = '';
 
+	var team3 = city.split(' ').join('')  + '_' +  name;
+    team3 = team3.split('.').join('')
+        var url = '';
         if (league == 'nba') {
     	    if (team == 'OKL') {
     	        url  = 'http://cdn.nba.net/assets/logos/teams/secondary/web/OKC.svg';
@@ -29,6 +28,11 @@ for (var i = 0; i < team_icons.length; i++) {
         } else if (league == 'nfl') {
     	    url = "https://static.nfl.com/static/content/public/static/wildcat/assets/img/logos/teams/" + team + ".svg";
         } else if (league == 'mlb') {
+            if (team3 == 'Toronto_BlueJays') {
+                team3 = 'Toronto_Blue_Jays';
+            } else if (team3 == 'Chicago_WhiteSox') {
+                team3 = 'Chicago_White_Sox';
+            }
             url = "http://www.capsinfo.com/images/MLB_Team_Logos/" + team3 + ".png";
         } else {
             url = "https://i.logocdn.com/nhl/2018/" + team2 + ".svg";
