@@ -38,7 +38,10 @@
     </button>
   </form>
   {% endif %}
-  <br>
+  <div class="col-sml-1">
+      Overall Ranking: No. {{teamentry['rank']}} <br>
+      Current Record: {{teamentry['stats']['Wins']['#text']}}W - {{teamentry['stats']['Losses']['#text']}}L
+  </div>
   </div>
   {% endfor %}
 

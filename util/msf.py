@@ -118,15 +118,15 @@ def get_boxscore(league,game_id):
     if boxscore == None:
         return None
     nb = dict()
-    awayTeam = ''.join(boxscore['gameboxscore']['game']['awayTeam']['Name'].lower().split(' '))
-    homeTeam = ''.join(boxscore['gameboxscore']['game']['homeTeam']['Name'].lower().split(' '))
-    nb[awayTeam] = boxscore['gameboxscore']['awayTeam']
     nb['awayTeam'] = nb[awayTeam]
     nb['awayName'] = boxscore['gameboxscore']['game']['awayTeam']['City'] + ' ' + boxscore['gameboxscore']['game']['awayTeam']['Name']
-    nb[homeTeam] = boxscore['gameboxscore']['homeTeam']
     nb['homeTeam'] = nb[homeTeam]
     nb['homeName'] = boxscore['gameboxscore']['game']['homeTeam']['City'] + ' ' + boxscore['gameboxscore']['game']['homeTeam']['Name']
     return nb
+
+def get_ranking_by_league(league):
+    '''Returns a list of all the teams, ordered by their ranking'''
+    return all_teams(league) #All teams already has the list in order
 
 
 
