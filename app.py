@@ -4,6 +4,7 @@ import os
 
 from util import dbcommands as db
 from util import msf
+from util import favorites as fav
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
@@ -82,10 +83,12 @@ def home():
     if 'user' not in session:
         return redirect(url_for('login'))
     name=session['user']
+    favorites = db.get_favorites(name)
+    favorites = fav.organize_by_league(favorites)
     return render_template(
         'home.html',
         name=name,
-        favorites=db.get_favorites(name)
+        favorites=favorites
         )
 
 @app.route("/<league>", methods=['GET', 'POST'])
@@ -93,12 +96,16 @@ def league_page(league):
     '''The pages for the league, which shows the list of teams'''
     if league not in LEAGUES:
         return redirect(url_for('home'))
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    favorites = db.get_favorites(session['user'])
+    favorites = fav.organize_by_team(favorites)
     return render_template(
         'league.html',
         schedule = msf.get_full_schedule(league),
         teams = msf.all_teams(league),
-        league = league
-        #get the team names from api
+        league = league,
+        favorites = favorites
         )
 
 
@@ -111,10 +118,19 @@ def favorite():
     db.add_favorite(user, data)
     return redirect('/home')
 
-
+@app.route('/unfavorite', methods=['POST'])
+def unfavorite():
+    if 'unfav' not in request.form:
+        return redirect('/')
+    data = request.form['unfav']
+    user = session['user']
+    db.remove_favorite(user,data)
+    return redirect('/home')
 
 @app.route("/<league>/team/<team_name>")
 def teams(league,team_name):
+    if 'user' not in session:
+        return redirect(url_for('login'))
     if league not in LEAGUES:
         return redirect(url_for('home'))
     league_games = msf.get_full_schedule(league)
@@ -130,6 +146,8 @@ def teams(league,team_name):
 
 @app.route("/<league>/game/<game_id>")
 def game(league,game_id):
+    if 'user' not in session:
+        return redirect(url_for('login'))
     boxscore = msf.get_boxscore(league,game_id)
     if boxscore == None:
         return render_template(
@@ -164,11 +182,6 @@ def bets():
         'bets.html',
         )
 
-@app.route("/test")
-def wot():
-    return render_template(
-        'nba_game_stats.html'
-    )
 
 
 if __name__ == "__main__":

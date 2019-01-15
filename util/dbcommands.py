@@ -57,7 +57,14 @@ def add_favorite(username, data):
     c.execute(command, (username, data))
     db.commit()
     db.close()
-    
+
+def remove_favorite(username, data):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    command = 'DELETE FROM favorites WHERE username = ? AND favorites = ?'
+    c.execute(command, (username, data))
+    db.commit()
+    db.close()
 
 
 def get_favorites(username):

@@ -12,16 +12,29 @@
   {% for teamentry in teams %}
       {% set team_city = teamentry['team']['City'].split(' ') %}
       {% set team_name = teamentry['team']['Name'].split(' ') %}
-  <a href="/{{league}}/team/{{team_city|join('')}}-{{teamentry['team']['Name']}}"> {{teamentry['team']['Name']}} </a>
+  <a href="/{{league}}/team/{{team_city|join('')}}-{{teamentry['team']['Name']}}">
+      {% if league == 'nba' or league == 'nfl' %}
+      {% set ref = namespace(id='Abbreviation') %}
+      {% else %}
+      {% set ref = namespace(id='ID') %}
+      {% endif %}
+      <div class="team_icon">{{teamentry['team'][ref.id]}}/{{league}}/{{teamentry['team']['City']}} {{teamentry['team']['Name']}}</div>
+  </a>
+  {% if teamentry['team'][ref.id] in favorites %}
+  <form action="/unfavorite" method="post" accept-charset="utf-8">
+    <button type="submit" name="unfav" class="btn" value="{{teamentry['team'][ref.id]}}/{{league}}/{{teamentry['team']['City']}} {{teamentry['team']['Name']}}">
+      Unfavorite
+    </button>
+  </form>
+  {% else %}
+  {{teamentry['team'][ref.id]}}
   <form action="/favorite" method="post" accept-charset="utf-8">
-    {% if league == 'mlb' or league == 'nhl' %}
-    <button type="submit" name="favdata" class="btn" value="{{teamentry['team']['ID']}}/{{league}}/{{teamentry['team']['City']}} {{teamentry['team']['Name']}}">
-    {% else %}
-    <button type="submit" name="favdata" class="btn" value="{{teamentry['team']['Abbreviation']}}/{{league}}/{{teamentry['team']['City']}} {{teamentry['team']['Name']}}">
-    {% endif %}
+    <button type="submit" name="favdata" class="btn" value="{{teamentry['team'][ref.id]}}/{{league}}/{{teamentry['team']['City']}} {{teamentry['team']['Name']}}">
       Favorite
     </button>
-  </form> <br>
+  </form>
+  {% endif %}
+  <br>
   {% endfor %}
 
   <!-- list of games -->
