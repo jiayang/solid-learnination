@@ -23,7 +23,7 @@ $ cd solid-learnination
 3. Activate your virtual environment. 
 ```
 $ source path/to/virtual/env/bin/activate #For Linux/OS
-$ source path/to/virtual/env/Scripts/activate #For Windows
+$ source path\to\virtual\env\Scripts\activate #For Windows
 ```
 
 4. In your virtual environment, install the dependencies:
