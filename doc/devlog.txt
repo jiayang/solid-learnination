@@ -102,4 +102,5 @@ Added score charts for every single league
 jiayangC-- 2019-01-14 13:19
 --------------------------------------------------------------
 Starting favorites for homepage
+Added generalized team icons to avoid messy jinja
 ==============================================================

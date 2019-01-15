@@ -13,43 +13,19 @@ Always Be a Good Sport
     <!-- List of all the team's games -->
     {% for game in games %}
     {% if league == 'nba' %}
-    <div class="team_icon"> Raptors/nba </div>
-        {% set img_url_away = namespace(url="http://cdn.nba.net/assets/logos/teams/secondary/web/%s.svg"|format(game['awayTeam']['Abbreviation'])) %}
         {% set game_id = namespace(url=game['id']) %}
-        {% if game['homeTeam']['Abbreviation'] == 'OKL' %}
-            {% set img_url_home = namespace(url="http://cdn.nba.net/assets/logos/teams/secondary/web/OKC.svg") %}
-        {% elif game['homeTeam']['Abbreviation'] == 'BRO' %}
-            {% set img_url_home = namespace(url="http://cdn.nba.net/assets/logos/teams/secondary/web/BKN.svg") %}
-        {% else %}
-            {% set img_url_home = namespace(url="http://cdn.nba.net/assets/logos/teams/secondary/web/%s.svg"|format(game['homeTeam']['Abbreviation'])) %}
-        {% endif %}
-        {% if game['awayTeam']['Abbreviation'] == 'OKL' %}
-            {% set img_url_away = namespace(url="http://cdn.nba.net/assets/logos/teams/secondary/web/OKC.svg") %}
-        {% elif game['awayTeam']['Abbreviation'] == 'BRO' %}
-            {% set img_url_away = namespace(url="http://cdn.nba.net/assets/logos/teams/secondary/web/BKN.svg") %}
-        {% else %}
-            {% set img_url_away = namespace(url="http://cdn.nba.net/assets/logos/teams/secondary/web/%s.svg"|format(game['awayTeam']['Abbreviation'])) %}
-        {% endif %}
     {% else %}
-        {% if league == 'nfl' %}
-            {% set img_url_home = namespace(url="https://static.nfl.com/static/content/public/static/wildcat/assets/img/logos/teams/%s.svg"|format(game['homeTeam']['Abbreviation'])) %}
-            {% set img_url_away = namespace(url="https://static.nfl.com/static/content/public/static/wildcat/assets/img/logos/teams/%s.svg"|format(game['awayTeam']['Abbreviation'])) %}
-        {% elif league == 'mlb' %}
-            {% set img_url_home = namespace(url="https://www.mlbstatic.com/team-logos/%s.svg"|format(game['homeTeam']['ID'])) %}
-            {% set img_url_away = namespace(url="https://www.mlbstatic.com/team-logos/%s.svg"|format(game['awayTeam']['ID'])) %}
-        {% elif league == 'nhl' %}
-            {% set img_url_home = namespace(url="https://www-league.nhlstatic.com/images/logos/teams-current-circle/%s.svg"|format(game['homeTeam']['ID'])) %}
-            {% set img_url_away = namespace(url="https://www-league.nhlstatic.com/images/logos/teams-current-circle/%s.svg"|format(game['awayTeam']['ID'])) %}
-        {% endif %}
         {% set game_id = namespace(url=game['date'].split('-')|join('') + '-' + game['awayTeam']['Abbreviation'] + '-' + game['homeTeam']['Abbreviation']) %}
     {% endif %}
     <div class="row">
         <div class="col-sm-2" style="border:1px solid #cecece;">
         <a class="team_link" href="../game/{{game_id.url}}">
-                <img class="team_icon" src="{{img_url_home.url}}">
-                {{game['homeTeam']['City'] + ' ' + game['homeTeam']['Name']}} <br>
-                <img class="team_icon" src="{{img_url_away.url}}">
-                {{game['awayTeam']['City'] + ' ' + game['awayTeam']['Name']}}
+            {% if league == 'nba' or league == 'nfl' %}
+            {% set ref = namespace(id='Abbreviation') %}
+            {% else %}
+            {% set ref = namespace(id='ID') %}
+            {% endif %}
+            <div class="team_icon">{{game['homeTeam'][ref.id]}}/{{league}}/{{game['homeTeam']['City']}} {{game['homeTeam']['Name']}};{{game['awayTeam'][ref.id]}}/{{league}}/{{game['awayTeam']['City']}} {{game['awayTeam']['Name']}}</div>
         </a>
         </div>
         <div class="col-sm-1 game_date" style="border:1px solid #cecece;">
@@ -61,7 +37,7 @@ Always Be a Good Sport
 
     <br>
     {% endfor %}
-    <brrrrr>
+    <br>
     <!-- lists of players and their images -->
     {% for player in players %}
         {{player['player']['FirstName'] + player['player']['LastName']}}

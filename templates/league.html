@@ -14,7 +14,11 @@
       {% set team_name = teamentry['team']['Name'].split(' ') %}
   <a href="/{{league}}/team/{{team_city|join('')}}-{{teamentry['team']['Name']}}"> {{teamentry['team']['Name']}} </a>
   <form action="/favorite" method="post" accept-charset="utf-8">
-    <button type="submit" name="favdata" class="btn" value="{{teamentry['team']['Name']}}/{{league}}">
+    {% if league == 'mlb' or league == 'nhl' %}
+    <button type="submit" name="favdata" class="btn" value="{{teamentry['team']['ID']}}/{{league}}/{{teamentry['team']['City']}} {{teamentry['team']['Name']}}">
+    {% else %}
+    <button type="submit" name="favdata" class="btn" value="{{teamentry['team']['Abbreviation']}}/{{league}}/{{teamentry['team']['City']}} {{teamentry['team']['Name']}}">
+    {% endif %}
       Favorite
     </button>
   </form> <br>
