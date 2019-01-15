@@ -18,7 +18,7 @@
           {% if league == 'nba' or league == 'nfl' %}
           {% set ref = namespace(id='Abbreviation') %}
           {% else %}
-          {% set ref = namespace(id='ID') %}
+          {% set ref = namespace(id='Name') %}
           {% endif %}
           <div class="team_icon">{{teamentry['team'][ref.id]}}/{{league}}/{{teamentry['team']['City']}} {{teamentry['team']['Name']}}</div>
           </a>

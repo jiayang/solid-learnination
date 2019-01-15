@@ -8,8 +8,14 @@ for (var i = 0; i < team_icons.length; i++) {
     for (var j = 0; j < data.length; j++) {
 
         var args = data[j].split('/');
+	console.log(args[0]);
         var league = args[1];
         var team = args[0];
+	var team2 = args[2].split(' ').join('-').split('.').join('').toLowerCase();
+	var name = args[0].split(' ').join('');
+	var city = args[2].substring(0,args[2].length -  args[0].length);
+	
+	var team3 = city.split(' ').join('')  + '_' +  name;
         var url = '';
 
         if (league == 'nba') {
@@ -23,9 +29,9 @@ for (var i = 0; i < team_icons.length; i++) {
         } else if (league == 'nfl') {
     	    url = "https://static.nfl.com/static/content/public/static/wildcat/assets/img/logos/teams/" + team + ".svg";
         } else if (league == 'mlb') {
-            url = "https://www.mlbstatic.com/team-logos/" + team + ".svg";
+            url = "http://www.capsinfo.com/images/MLB_Team_Logos/" + team3 + ".png";
         } else {
-            url = "https://www-league.nhlstatic.com/images/logos/teams-current-circle/" + team + ".svg";
+            url = "https://i.logocdn.com/nhl/2018/" + team2 + ".svg";
         }
         var img = document.createElement("img");
         img.src = url;
@@ -34,7 +40,6 @@ for (var i = 0; i < team_icons.length; i++) {
         text_to_add.push(args[2]);
     }
     ele.innerHTML = '';
-    console.log(childs_to_add)
     for (var k = 0; k < data.length; k++) {
         ele.appendChild(childs_to_add[k]);
         ele.innerHTML += text_to_add[k] + '<br>'
