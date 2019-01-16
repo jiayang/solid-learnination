@@ -36,6 +36,13 @@ Always Be a Good Sport
     </div>
 
     <br>
+    {% if game['id'] not in played_games %}
+    Bet
+    {% else %}
+    <a class="team_link" href="../game/{{game_id.url}}">
+      Boxscore
+    </a>
+    {% endif %}
     {% endfor %}
     <br>
     <!-- lists of players and their images -->

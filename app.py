@@ -136,12 +136,14 @@ def teams(league,team_name):
     league_games = msf.get_full_schedule(league)
     games = msf.reorder_schedule_by_team(league_games,team_name)
     players = msf.get_all_players_by_team(league,team_name)
+    played_games = msf.get_played_games_win_loss(league,team_name)
     return render_template(
         'teamPage.html',
         league = league.lower(),
         team = team_name,
         games = games,
-        players = players
+        players = players,
+        played_games = played_games
     )
 
 @app.route("/<league>/game/<game_id>")
