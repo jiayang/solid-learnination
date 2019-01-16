@@ -36,7 +36,7 @@ Always Be a Good Sport
     </div>
 
     <br>
-    {% if game['id'] not in played_games %}
+    {% if played_games == None or game['id'] not in played_games %}
     Bet
     {% else %}
     <a class="team_link" href="../game/{{game_id.url}}">

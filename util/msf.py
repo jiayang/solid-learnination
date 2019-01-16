@@ -134,27 +134,35 @@ def get_ranking_by_league(league):
 
 def get_played_games_win_loss(league,team):
     endpoint = 'team_gamelogs'
-    parameters = '?team=' + team.replace('.','').replace(' ','')
+    parameters = '?team=' + team.lower().replace('.','').replace(' ','')
     g = []
     if league == 'nfl':
         type = ['2019-playoff','2018-regular']
         regular = msf_request(URL.format(league,type[0],endpoint) + parameters)
         playoff = msf_request(URL.format(league,type[1],endpoint) + parameters)
-        g = regular['teamgamelogs']['gamelogs'] + playoff['teamgamelogs']['gamelogs']
+        ans = []
+        if 'gamelogs' in regular['teamgamelogs']:
+            ans += regular['teamgamelogs']['gamelogs']
+        if 'gamelogs' in playoff['teamgamelogs']:
+            ans += playoff['teamgamelogs']['gamelogs']
+        if ans == []:
+            return None
+        g = ans
     if league == 'nba' or league == 'nhl':
         type = '2018-2019-regular'
     if league == 'mlb':
         type = '2019-regular'
-
-    games = msf_request(URL.format(league,type,endpoint) + parameters)
-
-    g=  games['teamgamelogs']['gamelogs']
+    if league != 'nfl':
+        games = msf_request(URL.format(league,type,endpoint) + parameters)
+        if 'gamelogs' not in games['teamgamelogs']:
+            return None
+            g=  games['teamgamelogs']['gamelogs']
     #Organize by ID
     ans = dict()
     for game in g:
         ans[game['game']['id']] = game
     return ans
-    
+
 keys = ''
 if __name__ == '__main__':
     keys = json.loads(open('../data/keys.json','r').read())

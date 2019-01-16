@@ -38,7 +38,11 @@
   {% endif %}
   <div class="col-sml-1">
       Overall Ranking: No. {{teamentry['rank']}} <br>
+      {% if league == 'nhl' %}
+      Current Record: {{teamentry['stats']['stats']['Wins']['#text']}} - {{teamentry['stats']['stats']['Losses']['#text']}} (W/L)
+      {% else %}
       Current Record: {{teamentry['stats']['Wins']['#text']}} - {{teamentry['stats']['Losses']['#text']}} (W/L)
+      {% endif %}
   </div>
   </div>
   {% endfor %}
