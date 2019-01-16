@@ -37,10 +37,14 @@ for (var i = 0; i < team_icons.length; i++) {
         } else {
             url = "https://i.logocdn.com/nhl/2018/" + team2 + ".svg";
         }
+	var anchor = document.createElement("A");
+	anchor.href = "/" + league + "/" + city.split(' ').join('') + '-' + name;
+
         var img = document.createElement("img");
         img.src = url;
         img.className += ' team_icon_img';
-        childs_to_add.push(img);
+	anchor.appendChild(img);
+        childs_to_add.push(anchor);
         text_to_add.push(args[2]);
     }
     ele.innerHTML = '';
