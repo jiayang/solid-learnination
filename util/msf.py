@@ -156,7 +156,7 @@ def get_played_games_win_loss(league,team):
         games = msf_request(URL.format(league,type,endpoint) + parameters)
         if 'gamelogs' not in games['teamgamelogs']:
             return None
-            g=  games['teamgamelogs']['gamelogs']
+        g=  games['teamgamelogs']['gamelogs']
     #Organize by ID
     ans = dict()
     for game in g:
