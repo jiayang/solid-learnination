@@ -40,6 +40,8 @@ def auth():
             # Log them in
             session['user'] = username_input
             session['balance'] = db.get_balance(username_input)
+            check_bet_updates(session['user'])
+
             return redirect(url_for("home"))
         # Failed password and username match
         else:
@@ -225,7 +227,7 @@ def Authbets(league, game_id, home, away):
     if amount > user_bal:
         flash("The amount you bet is higher than your current balance... Try again!")
         return render_template('makeBets.html', league=league, game_id = game_id, homeTeam = home, awayTeam= away,name = session['user'], balance = session['balance'])
-    elif amount < 1:
+    elif amount < 100:
         flash("The amount you bet is too little... Try again!")
         return render_template('makeBets.html', league=league, game_id = game_id, homeTeam = home, awayTeam= away,name = session['user'], balance = session['balance'])
     else:
@@ -246,13 +248,28 @@ def bet_already():
     return render_template('bets.html', bets_made = all_bets, name =session['user'], balance =session['balance'] )
 
 #regular funciton
-def check_bet_updates():
+def check_bet_updates(username_input):
     users_bets = db.get_bets(username_input)
     for bet in users_bets:
-        Gid = str(bet[3])
-        lge = bet[2]
+        game_id = str(bet[3])
+        league = bet[2]
+        team_name = bet[4]
         played_games = msf.get_played_games_win_loss(league,team_name)
-
+        if game_id in played_games:
+            db.remove_bet(session['user'],game_id)
+            game_info = played_games[game_id]
+            #Won
+            if game_info['stats']['Wins']['#text'] == '1':
+                #add double
+                #flash
+                cur_bal = session['balance']
+                to_add = bets[1] * 2
+                cur_bal += to_add
+                session['balance'] = cur_bal
+                db.update_balance(session['user'],cur_bal)
+            else:
+                #flash messages
+                pass
 
 if __name__ == "__main__":
     app.debug = True

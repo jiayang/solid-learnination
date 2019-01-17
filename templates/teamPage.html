@@ -37,7 +37,7 @@ Always Be a Good Sport
           <a class="team_link" href="/your_bets"> Already bet for this game </a>
           {% elif played_games == None or game['id'] not in played_games %}
 
-          <form action ="/Make_bets/{{league}}/{{game['id']}}/{{game['homeTeam']['Name']}}/{{game['awayTeam']['Name']}}" method="GET">
+          <form action ="/Make_bets/{{league}}/{{game['id']}}/{{game['homeTeam']['City'] + ' ' + game['homeTeam']['Name']}}/{{game['awayTeam']['City'] +' ' +  game['awayTeam']['Name']}}" method="GET">
             <button type="submit" value= class="btn btn-primary"> Place <br> Bets </button>
           </form>
 

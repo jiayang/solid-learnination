@@ -99,6 +99,7 @@ def add_bets(username, val, league, Gid, team):
     c = db.cursor()
     command = 'INSERT INTO bets VALUES(?, ?, ?, ?, ?)'
     c.execute(command, (username, val, league, Gid, team))
+    print(team)
     db.commit()
     db.close()
 
@@ -110,7 +111,7 @@ def get_bets(username):
     results = c.fetchall()
     db.close()
     return results
-# [('joe', 300, 'nfl', 45266, 'cavaliers'), ('joe', 300, 'nfl', 45266, 'cavaliers'), ('joe', 308, 'nfl', 452, 'caiers')]
+# [('joe', 300, 'nfl', 45266, 'cleveland-cavaliers'), ('joe', 300, 'nfl', 45266, 'cavaliers'), ('joe', 308, 'nfl', 452, 'caiers')]
 
 def update_balance(username, New_val):
     db = sqlite3.connect(DB_FILE)
