@@ -15,7 +15,7 @@ def index():
     '''Shows the user the login and register buttons'''
     if "user" in session:
         return redirect(url_for('home'))
-    return render_template('landing.html')
+    return render_template('landing.html', background='https://usatthebiglead.files.wordpress.com/2018/08/gettyimages-1019054818.jpg?w=1000&h=600&crop=1?w=1000&crop=0',)
 
 
 @app.route('/login')
