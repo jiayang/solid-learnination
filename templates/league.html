@@ -13,7 +13,7 @@
       {% set team_city = teamentry['team']['City'] %}
       {% set team_name = teamentry['team']['Name'].split(' ') %}
   <div class="row">
-      <div class="col-sm-2" style="border:1px solid #cecece;">
+      <div class="col-sm-2" style="border:1px solid #cecece; margin: 10px 0px;">
           {% if league == 'nba' or league == 'nfl' %}
           {% set ref = namespace(id='Abbreviation') %}
           {% else %}
@@ -23,20 +23,20 @@
       </div>
   {% if teamentry['team'][ref.id] in favorites %}
   <form action="/unfavorite" method="post" accept-charset="utf-8">
-    <button type="submit" name="unfav" class="btn btn-primary-outline" value="{{teamentry['team'][ref.id]}}/{{league}}/{{teamentry['team']['City']}} {{teamentry['team']['Name']}}">
+    <button type="submit" name="unfav" class="btn btn-primary-outline" value="{{teamentry['team'][ref.id]}}/{{league}}/{{teamentry['team']['City']}} {{teamentry['team']['Name']}}" style="margin-top: 12px;">
       ★
       <!-- filled in star symbol -->
     </button>
   </form>
   {% else %}
   <form action="/favorite" method="post" accept-charset="utf-8">
-    <button type="submit" name="favdata" class="btn btn-primary-outline" value="{{teamentry['team'][ref.id]}}/{{league}}/{{teamentry['team']['City']}} {{teamentry['team']['Name']}}">
+    <button type="submit" name="favdata" class="btn btn-primary-outline" value="{{teamentry['team'][ref.id]}}/{{league}}/{{teamentry['team']['City']}} {{teamentry['team']['Name']}}" style="margin-top: 12px;">
       ☆
       <!-- blank star symbol -->
     </button>
   </form>
   {% endif %}
-  <div class="col-sml-1">
+  <div class="col-sml-1" style="margin: 10px 0px;">
       Overall Ranking: No. {{teamentry['rank']}} <br>
       {% if league == 'nhl' %}
       Current Record: {{teamentry['stats']['stats']['Wins']['#text']}} - {{teamentry['stats']['stats']['Losses']['#text']}} (W/L)
