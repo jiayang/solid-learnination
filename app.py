@@ -105,7 +105,8 @@ def league_page(league):
         schedule = msf.get_full_schedule(league),
         teams = msf.all_teams(league),
         league = league,
-        favorites = favorites
+        favorites = favorites,
+        name = session['user']
         )
 
 
@@ -143,7 +144,8 @@ def teams(league,team_name):
         team = team_name,
         games = games,
         players = players,
-        played_games = played_games
+        played_games = played_games,
+        name = session['user']
     )
 
 @app.route("/<league>/game/<game_id>")
@@ -151,41 +153,47 @@ def game(league,game_id):
     if 'user' not in session:
         return redirect(url_for('login'))
     boxscore = msf.get_boxscore(league,game_id)
+    name = session['user']
     if boxscore == None:
         return render_template(
-        'game_not_found.html'
+        'game_not_found.html',
+        name = name
         )
     if league == 'nba':
         return render_template(
         'nba_game_stats.html',
-        boxscore = boxscore
+        boxscore = boxscore,
+        name = name
         )
     if league =='nhl':
         return render_template(
         'nhl_game_stats.html',
-        boxscore = boxscore
+        boxscore = boxscore,
+        name = name
         )
     if league == 'mlb':
         return render_template(
         'mlb_game_stats.html',
-        boxscore = boxscore
+        boxscore = boxscore,
+        name = name
         )
     if league == 'nfl':
         return render_template(
         'nfl_game_stats.html',
-        boxscore = boxscore
+        boxscore = boxscore,
+        name = name
         )
 
-
+@app.route("/Make_bets")
+def Makebets():
+    return render_template('makeBets.html')
 
 @app.route("/bets")
 def bets():
-    return render_template(
-        'bets.html',
-        )
+    return render_template('bets.html')
 
 
 
 if __name__ == "__main__":
     app.debug = True
-app.run()
+    app.run()

@@ -2,14 +2,13 @@
 
 {% extends "base.html" %}
 
+
 {% block title %}
 Always Be a Good Sport
 {% endblock %}
 
 {% block content %}
-
-    {{team.split('-')|join(' ')}} <br>
-
+    <h2>{{team.split('-')|join(' ')}}</h2> <br>
     <!-- List of all the team's games -->
     {% for game in games %}
     {% if league == 'nba' %}
@@ -33,15 +32,17 @@ Always Be a Good Sport
             @ <br>
             {{game['time']}}
         </div>
+        <div class="col-sm-1 game_info" >
+          {% if played_games == None or game['id'] not in played_games %}
+          <button type="button" class="bet_button">Place <br> Bets</button>
+          {% else %}
+          <a class="team_link" href="../game/{{game_id.url}}">
+             Boxscore
+          </a>
+          {% endif %}
+        </div>
     </div>
     <br>
-    {% if played_games == None or game['id'] not in played_games %}
-    Bet
-    {% else %}
-    <a class="team_link" href="../game/{{game_id.url}}">
-      Boxscore
-    </a>
-    {% endif %}
     {% endfor %}
     <br>
     <!-- lists of players and their images -->
@@ -60,6 +61,4 @@ Always Be a Good Sport
         {% endif %}
     <br>
     {% endfor %}
-
-
 {% endblock %}
