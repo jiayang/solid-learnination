@@ -8,51 +8,52 @@ Home
 
 {% block content %}
 
-  <!-- sidebar (needs formatting)-->
-  <div class="gutter">
-    <div class="row">
-      <div class="col-3">
-	<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-          <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="/nba" role="tab" aria-controls="v-pills-home" aria-selected="true">NBA</a>
-          <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="/nfl" role="tab" aria-controls="v-pills-profile" aria-selected="false">NFL</a>
-          <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="/nhl" role="tab" aria-controls="v-pills-messages" aria-selected="false">NHL</a>
-          <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="/mlb" role="tab" aria-controls="v-pills-settings" aria-selected="false">MLB</a>
-	</div>
-      </div>
-      <div class="col-9">
-	<div class="tab-content">
-          <!-- favorites -->
-          <h2> Favorites </h2>
-          <div>
-            <h3>NBA</h3>
-            {% for fav in favorites['nba'] %}
-            <!-- The team_icon class needs the innerHTML to be "TEAMID OR ABBREVIATION/LEAGUE/TEAMDISPLAYNAME" -->
-            <!-- NBA and NFL use ABBREVIATIONS while MLB AND NHL use TEAMID -->
-    	    <div class="team_icon">{{fav[0]}}</div>
-	    {% endfor %}
-          </div>
-          <div>
-            <h3>NFL</h3>
-            {% for fav in favorites['nfl'] %}
-    	    <div class="team_icon">{{fav[0]}}</div>
-	    {% endfor %}
-          </div>
-          <div>
-            <h3>NHL</h3>
-            {% for fav in favorites['nhl'] %}
-    	    <div class="team_icon">{{fav[0]}}</div>
-	    {% endfor %}
-          </div>
-          <div>
-            <h3>MLB</h3>
-            {% for fav in favorites['mlb'] %}
-    	    <div class="team_icon">{{fav[0]}}</div>
-	    {% endfor %}
-          </div>
-	</div>
-      </div>
-      </div>
-  </div>
+<!-- sidebar (needs formatting)-->
+<div class="gutter">
+  <div class="row">
+    <div class="col-3">
+<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="margin-top: 20px;">
+        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="/" role="tab" aria-controls="v-pills-home" aria-selected="true">Leagues</a>
+        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="/nba" role="tab" aria-controls="v-pills-profile" aria-selected="false">NBA</a>
+        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="/nfl" role="tab" aria-controls="v-pills-profile" aria-selected="false">NFL</a>
+        <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="/nhl" role="tab" aria-controls="v-pills-messages" aria-selected="false">NHL</a>
+        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="/mlb" role="tab" aria-controls="v-pills-settings" aria-selected="false">MLB</a>
+</div>
+    </div>
+    <div class="col-9">
+<div class="tab-content">
+        <!-- favorites -->
+        <h2 class="display-4" style="margin-bottom: 30px;"> Favorites </h2>
+        <div style="margin-bottom: 20px;">
+          <h3>NBA</h3>
+          {% for fav in favorites['nba'] %}
+          <!-- The team_icon class needs the innerHTML to be "TEAMID OR ABBREVIATION/LEAGUE/TEAMDISPLAYNAME" -->
+          <!-- NBA and NFL use ABBREVIATIONS while MLB AND NHL use TEAMID -->
+        <div class="team_icon">{{fav[0]}}</div>
+    {% endfor %}
+        </div>
+        <div style="margin-bottom: 20px;">
+          <h3>NFL</h3>
+          {% for fav in favorites['nfl'] %}
+        <div class="team_icon">{{fav[0]}}</div>
+    {% endfor %}
+        </div>
+        <div style="margin-bottom: 20px;">
+          <h3>NHL</h3>
+          {% for fav in favorites['nhl'] %}
+        <div class="team_icon">{{fav[0]}}</div>
+    {% endfor %}
+        </div>
+        <div style="margin-bottom: 20px;">
+          <h3>MLB</h3>
+          {% for fav in favorites['mlb'] %}
+        <div class="team_icon">{{fav[0]}}</div>
+    {% endfor %}
+        </div>
+</div>
+    </div>
+    </div>
+</div>
 
 
 {% endblock %}

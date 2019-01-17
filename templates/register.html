@@ -8,30 +8,30 @@ Register
 {% endblock %}
   {% block content %}
 
-    {% if password_error %}
-      <div class="alert alert-danger" role="alert">
-        {{password_error}}
+  {% if password_error %}
+    <div class="alert alert-danger" role="alert" style="width: 600px; height: 50px; margin: 0 auto; margin-top: 25px;">
+      {{password_error}}
+    </div>
+  {% endif %}
+
+  {% set msgs = get_flashed_messages() %}
+    {% for each in msgs %}
+      <div class="alert alert-danger" role="alert" style="width: 600px; height: 50px; margin: 0 auto; margin-top: 25px;">
+        {{each}}
       </div>
-    {% endif %}
+    {% endfor %}
 
-    {% set msgs = get_flashed_messages() %}
-      {% for each in msgs %}
-        <div class="alert alert-danger" role="alert">
-          {{each}}
-        </div>
-      {% endfor %}
-
-    <form action="/register" method = "POST">
-      Enter a new username: <br>
-      <input type="text" name="reg_username" placeholder="Must be unique"> <br>
-      Password: <br>
-      <input type="password" name="reg_password" placeholder="Password"> <br>
-      Confirm password: <br>
-      <input type="password" name="reg_confirm" placeholder="Must match last field"> <br> <br>
-      <button type="submit" class="btn btn-primary"> Sign Up </button>
-      <a href="/login">
-        <button type="button" class="btn btn-primary"> Cancel </button>
-      </a>
-    </form>
+  <form action="/register" method = "POST" style="width: 700px; margin: 0 auto; text-align: center; padding-top: 225px; padding-bottom: 25px;">
+    Enter a new username: <br>
+    <input type="text" name="reg_username" placeholder="Must be unique"> <br>
+    Password: <br>
+    <input type="password" name="reg_password" placeholder="Password"> <br>
+    Confirm password: <br>
+    <input type="password" name="reg_confirm" placeholder="Must match last field"> <br> <br>
+    <a href="/">
+      <button type="button" class="btn btn-primary" style="margin-right: 10px;"> Cancel </button>
+    </a>
+    <button type="submit" class="btn btn-primary"> Sign Up </button>
+  </form>
 
 {% endblock %}

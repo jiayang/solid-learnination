@@ -15,7 +15,7 @@ def index():
     '''Shows the user the login and register buttons'''
     if "user" in session:
         return redirect(url_for('home'))
-    return render_template('landing.html')
+    return render_template('landing.html', background='https://www.lboro.ac.uk/media/wwwlboroacuk/external/content/research/sti/slide1.png',)
 
 
 @app.route('/login')
@@ -23,7 +23,7 @@ def login():
     '''Lets the user log in'''
     if 'user' in session:
         return redirect(url_for('home'))
-    return render_template('login.html')
+    return render_template('login.html', background='http://www.tsul.uz/files/obyavleniya/01.09.2018/sss960.jpg',)
 
 @app.route('/auth', methods = ["POST"])
 def auth():
@@ -72,7 +72,7 @@ def register():
             db.add_balance(r_username)
             session['balance'] = db.get_balance(r_username)
             return redirect(url_for("home"))
-    return render_template('register.html')
+    return render_template('register.html', background='http://www.tsul.uz/files/obyavleniya/01.09.2018/sss960.jpg',)
 
 @app.route('/logout', methods = ['GET'])
 def logout():
