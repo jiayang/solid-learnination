@@ -4,7 +4,7 @@ DB_FILE ="data/database.db"
 #----------------when you want to add data to the database------------------------------
 #adds to the users table
 def add_user(username,password_hash):
-    '''adds users to use table'''
+    '''adds users to user table'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     command = "INSERT INTO users (username,password)VALUES(?,?);"
@@ -51,6 +51,7 @@ def get_username(id):
 
 
 def add_favorite(username, data):
+    '''adds favorites to favorite table'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     command = 'INSERT INTO favorites VALUES(?, ?)'
@@ -59,6 +60,7 @@ def add_favorite(username, data):
     db.close()
 
 def add_balance(username):
+    '''adds balance to balance table'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     command = 'INSERT INTO balance VALUES(?, ?)'
@@ -67,6 +69,7 @@ def add_balance(username):
     db.close()
 
 def remove_favorite(username, data):
+    '''removes favorite from the favorite table'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     command = 'DELETE FROM favorites WHERE username = ? AND favorites = ?'
@@ -76,6 +79,7 @@ def remove_favorite(username, data):
 
 
 def get_favorites(username):
+    '''gets favorites from the favorite table based on username'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     command =  "SELECT * FROM favorites WHERE username=?"
@@ -86,6 +90,7 @@ def get_favorites(username):
     return favorites
 
 def get_balance(username):
+    '''gets balance from balance table based on username'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     command =  "SELECT * FROM balance WHERE username=?"
@@ -95,6 +100,7 @@ def get_balance(username):
     return results[0][1]
 
 def add_bets(username, val, league, Gid, team):
+    '''add bets to the bets table'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     command = 'INSERT INTO bets VALUES(?, ?, ?, ?, ?)'
@@ -104,6 +110,7 @@ def add_bets(username, val, league, Gid, team):
     db.close()
 
 def get_bets(username):
+    '''get bets from bets table based on username'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     command =  "SELECT * FROM bets WHERE username=?"
@@ -114,6 +121,7 @@ def get_bets(username):
 # [('joe', 300, 'nfl', 45266, 'cleveland-cavaliers'), ('joe', 300, 'nfl', 45266, 'cavaliers'), ('joe', 308, 'nfl', 452, 'caiers')]
 
 def update_balance(username, New_val):
+    '''add to balance table'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     command = "UPDATE balance SET money=? WHERE username=?"
@@ -122,6 +130,7 @@ def update_balance(username, New_val):
     db.close()
 
 def remove_bet(username, game_id):
+    '''remove bet from bets table'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     command = 'DELETE FROM bets WHERE username = ? AND gameID = ?'
