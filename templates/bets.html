@@ -7,9 +7,10 @@ Always Be a Good Sport
 {% endblock %}
 
 {% block content %}
-<div style="width: 100%;">
-  <div style="margin: 0 auto;">
-  <div class="row">
+<div>
+  <div>
+  <div class="row" style="margin-top: 50px;">
+      <div class="col-sm-1 game_info"> </div>
       <div class="col-sm-1 game_info" style="border:1px solid #cecece;background-color: coral;">
           League
       </div>
@@ -22,13 +23,14 @@ Always Be a Good Sport
   </div>
   {% for bets in bets_made %}
   <div class="row">
+      <div class="col-sm-1 game_info"> </div>
       <div class="col-sm-1 game_info" style="border:1px solid #cecece;">
           {{bets[2]}}
       </div>
       <div class="col-sm-1 game_info" style="border:1px solid #cecece;">
           {{bets[4]}}
       </div>
-      <div class="col-sm-1 game_info" >
+      <div class="col-sm-1 game_info" style="border:1px solid #cecece;">
           $ {{bets[1]}}
       </div>
   </div>
