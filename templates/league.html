@@ -13,7 +13,7 @@
       {% set team_city = teamentry['team']['City'] %}
       {% set team_name = teamentry['team']['Name'].split(' ') %}
   <div class="row">
-      <div class="col-sm-2" style="border:1px solid #cecece; margin: 10px 0px;">
+      <div class="col-sm-2" style="border:1px solid #cecece; margin: 10px 0px 10px 100px;">
           {% if league == 'nba' or league == 'nfl' %}
           {% set ref = namespace(id='Abbreviation') %}
           {% else %}
