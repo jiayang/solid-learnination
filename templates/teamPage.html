@@ -33,8 +33,14 @@ Always Be a Good Sport
             {{game['time']}}
         </div>
         <div class="col-sm-1 game_info" >
-          {% if played_games == None or game['id'] not in played_games %}
-          <button type="button" class="bet_button">Place <br> Bets</button>
+          {% if game['id'] in bet_gid %}
+          <a class="team_link" href="/your_bets"> Already bet for this game </a>
+          {% elif played_games == None or game['id'] not in played_games %}
+
+          <form action ="/Make_bets/{{league}}/{{game['id']}}/{{game['homeTeam']['Name']}}/{{game['awayTeam']['Name']}}" method="GET">
+            <button type="submit" value= class="btn btn-primary"> Place <br> Bets </button>
+          </form>
+
           {% else %}
           <a class="team_link" href="../game/{{game_id.url}}">
              Boxscore

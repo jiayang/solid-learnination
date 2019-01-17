@@ -39,6 +39,7 @@ def auth():
         if md5_crypt.verify(password_input, all_usernames[username_input]):
             # Log them in
             session['user'] = username_input
+            session['balance'] = db.get_balance(username_input)
             return redirect(url_for("home"))
         # Failed password and username match
         else:
@@ -68,6 +69,8 @@ def register():
         else:
             session['user'] = r_username
             db.add_user(r_username, md5_crypt.encrypt(r_password))
+            db.add_balance(r_username)
+            session['balance'] = db.get_balance(r_username)
             return redirect(url_for("home"))
     return render_template('register.html')
 
@@ -88,7 +91,8 @@ def home():
     return render_template(
         'home.html',
         name=name,
-        favorites=favorites
+        favorites=favorites,
+        balance = session['balance']
         )
 
 @app.route("/<league>", methods=['GET', 'POST'])
@@ -106,7 +110,8 @@ def league_page(league):
         teams = msf.all_teams(league),
         league = league,
         favorites = favorites,
-        name = session['user']
+        name = session['user'],
+        balance = session['balance']
         )
 
 
@@ -138,6 +143,11 @@ def teams(league,team_name):
     games = msf.reorder_schedule_by_team(league_games,team_name)
     players = msf.get_all_players_by_team(league,team_name)
     played_games = msf.get_played_games_win_loss(league,team_name)
+
+    users_bets = db.get_bets(session['user'])
+    Gid = []
+    for bet in users_bets:
+        Gid.append(str(bet[3]))
     return render_template(
         'teamPage.html',
         league = league.lower(),
@@ -145,7 +155,9 @@ def teams(league,team_name):
         games = games,
         players = players,
         played_games = played_games,
-        name = session['user']
+        name = session['user'],
+        balance = session['balance'],
+        bet_gid = Gid
     )
 
 @app.route("/<league>/game/<game_id>")
@@ -154,44 +166,92 @@ def game(league,game_id):
         return redirect(url_for('login'))
     boxscore = msf.get_boxscore(league,game_id)
     name = session['user']
+    bal = session['balance']
     if boxscore == None:
         return render_template(
         'game_not_found.html',
-        name = name
+        name = name,
+        balance = bal
         )
     if league == 'nba':
         return render_template(
         'nba_game_stats.html',
         boxscore = boxscore,
-        name = name
+        name = name,
+        balance = bal
         )
     if league =='nhl':
         return render_template(
         'nhl_game_stats.html',
         boxscore = boxscore,
-        name = name
+        name = name,
+        balance = bal
         )
     if league == 'mlb':
         return render_template(
         'mlb_game_stats.html',
         boxscore = boxscore,
-        name = name
+        name = name,
+        balance = bal
         )
     if league == 'nfl':
         return render_template(
         'nfl_game_stats.html',
         boxscore = boxscore,
-        name = name
+        name = name,
+        balance = bal
         )
 
-@app.route("/Make_bets")
-def Makebets():
-    return render_template('makeBets.html')
+@app.route("/Make_bets/<league>/<game_id>/<home>/<away>")
+def Makebets(league, game_id, home, away):
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    return render_template('makeBets.html', league=league, game_id = game_id, homeTeam = home, awayTeam= away,name = session['user'], balance = session['balance'])
 
-@app.route("/bets")
-def bets():
-    return render_template('bets.html')
+@app.route("/Auth_bets/<league>/<game_id>/<home>/<away>")
+def Authbets(league, game_id, home, away):
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    user_bal = session['balance']
+    team = request.args.get("chosen_team")
+    if team == None:
+        flash("Choose a Team!")
+        return render_template('makeBets.html', league=league, game_id = game_id, homeTeam = home, awayTeam= away,name = session['user'], balance = session['balance'])
+    try:
+        amount = int(request.args.get("value"))
+    except:
+        flash("Enter a monetary value!")
+        return render_template('makeBets.html', league=league, game_id = game_id, homeTeam = home, awayTeam= away,name = session['user'], balance = session['balance'])
+    if amount > user_bal:
+        flash("The amount you bet is higher than your current balance... Try again!")
+        return render_template('makeBets.html', league=league, game_id = game_id, homeTeam = home, awayTeam= away,name = session['user'], balance = session['balance'])
+    elif amount < 1:
+        flash("The amount you bet is too little... Try again!")
+        return render_template('makeBets.html', league=league, game_id = game_id, homeTeam = home, awayTeam= away,name = session['user'], balance = session['balance'])
+    else:
+        db.add_bets(session['user'], amount, league, int(game_id), team)
+        val = user_bal - amount
+        print(val)
+        db.update_balance(session['user'], val)
+        session['balance'] = val
+        all_bets = db.get_bets(session['user'])
+        return redirect(url_for("bet_already"))
 
+
+@app.route("/your_bets")
+def bet_already():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    all_bets = db.get_bets(session['user'])
+    return render_template('bets.html', bets_made = all_bets, name =session['user'], balance =session['balance'] )
+
+#regular funciton
+def check_bet_updates():
+    users_bets = db.get_bets(username_input)
+    for bet in users_bets:
+        Gid = str(bet[3])
+        lge = bet[2]
+        played_games = msf.get_played_games_win_loss(league,team_name)
 
 
 if __name__ == "__main__":

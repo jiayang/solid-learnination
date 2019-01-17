@@ -58,6 +58,14 @@ def add_favorite(username, data):
     db.commit()
     db.close()
 
+def add_balance(username):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    command = 'INSERT INTO balance VALUES(?, ?)'
+    c.execute(command, (username, 1000))
+    db.commit()
+    db.close()
+
 def remove_favorite(username, data):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
@@ -77,6 +85,40 @@ def get_favorites(username):
     db.close()
     return favorites
 
+def get_balance(username):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    command =  "SELECT * FROM balance WHERE username=?"
+    c.execute(command, (username,))
+    results = c.fetchall()
+    db.close()
+    return results[0][1]
+
+def add_bets(username, val, league, Gid, team):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    command = 'INSERT INTO bets VALUES(?, ?, ?, ?, ?)'
+    c.execute(command, (username, val, league, Gid, team))
+    db.commit()
+    db.close()
+
+def get_bets(username):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    command =  "SELECT * FROM bets WHERE username=?"
+    c.execute(command, (username,))
+    results = c.fetchall()
+    db.close()
+    return results
+# [('joe', 300, 'nfl', 45266, 'cavaliers'), ('joe', 300, 'nfl', 45266, 'cavaliers'), ('joe', 308, 'nfl', 452, 'caiers')]
+
+def update_balance(username, New_val):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    command = "UPDATE balance SET money=? WHERE username=?"
+    c.execute(command, (New_val, username))
+    db.commit()
+    db.close()
 
 
 
@@ -86,5 +128,9 @@ c = db.cursor()
 commands = []
 commands += ["CREATE TABLE IF NOT EXISTS users(username TEXT, password TEXT)"]
 commands += ["CREATE TABLE IF NOT EXISTS favorites(username TEXT, favorites TEXT)"]
+commands += ["CREATE TABLE IF NOT EXISTS balance(username TEXT, money INTEGER)"]
+commands += ["CREATE TABLE IF NOT EXISTS bets(username TEXT, money INTEGER, league TEXT, gameID INTEGER, team TEXT)"]
 for command in commands:
     c.execute(command)
+db.commit()
+c.close()

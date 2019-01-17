@@ -134,9 +134,32 @@ Fixed heading format for team names on the boxscore page,
 Made navigation bar visible throughout the website.
 ==============================================================
 
-jabirC-- 2019-01-17 21:32
+jabirC-- 2019-01-16 21:32
 --------------------------------------------------------------
 Added a wallet section to navigation bar, uses javascript and
 modals to display user balance.
 Formatted boxscore link and betting button in teampage
+==============================================================
+
+jabirC-- 2019-01-16 23:12
+--------------------------------------------------------------
+Created betting page where users can choose which team they
+want to bet for and how much. Added css to the betting page.
+==============================================================
+
+jabirC-- 2019-01-17 1:05
+--------------------------------------------------------------
+Created several dbcommands function to facilitate communication
+between database. Added new tables, necessary for bet placements.
+==============================================================
+
+jabirC-- 2019-01-17 2:15
+--------------------------------------------------------------
+Added a bets page, where users can see the bets they have Made.
+need to add css to it.
+==============================================================
+
+jabirC-- 2019-01-17 3:20
+--------------------------------------------------------------
+Made sure teamPage.html shows that bets were made for certain games.
 ==============================================================

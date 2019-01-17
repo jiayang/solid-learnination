@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}
+Always Be a Good Sport
+{% endblock %}
+
+{% block content %}
+<!-- <p> {{league}} </p> <br>
+<p> {{game_id}} </p> <br>
+<p> {{homeTeam}}</p> <br>
+<p> {{awayTeam}}</p> <br> -->
+<br><br><br><br>
+<div class="row">
+  <div class="col-md-3">
+  </div>
+  <div class="col-md-6">
+      <div class = "container-fluid" style="background-color: lightblue; border-radius:.75rem;">
+        <h1><strong> Place Your Bets </strong></h1>
+        {% set msgs = get_flashed_messages() %}
+        {% for each in msgs %}
+          <div class="alert alert-danger" role="alert">
+            {{each}}
+          </div><br>
+          {% endfor %}
+          <form action ="/Auth_bets/{{league}}/{{game_id}}/{{homeTeam}}/{{awayTeam}}" method="GET" >
+            <div class="form-group">
+            <input type="radio" name="chosen_team" id="R1" value={{homeTeam}}><h2>{{homeTeam}}</h2>
+            <input type="radio" name="chosen_team" id="R2" value={{awayTeam}}><h2>{{awayTeam}}</h2>
+            </div>
+            <div class="form-group">
+              <label for="Balance"><strong>Current Balance: ${{balance}}</strong></label>
+              <input type="text" class="form-control" name="value" id="value" placeholder="Amount to Bet">
+            </div>
+            <button type="submit" class="btn btn-primary">Commit</button>
+          </form>
+          <br>
+        </div>
+      </div>
+      <div class="col-md-3">
+      </div>
+  </div>
+{% endblock %}
