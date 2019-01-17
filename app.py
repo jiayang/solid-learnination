@@ -12,7 +12,7 @@ LEAGUES = ['nba','nfl','nhl','mlb']
 
 @app.route('/')
 def index():
-    '''Shows the user the login and register buttons'''
+    '''Shows the user the landing page with the login and register buttons'''
     if "user" in session:
         return redirect(url_for('home'))
     return render_template('landing.html', background='https://www.lboro.ac.uk/media/wwwlboroacuk/external/content/research/sti/slide1.png',)
@@ -60,6 +60,7 @@ def register():
         r_username = request.form.get("reg_username")
         r_password = request.form.get("reg_password")
         check_pass = request.form.get("reg_confirm")
+        #flashes errors
         if r_username in db.get_all_users():
             flash("Username taken")
         elif r_password != check_pass:
@@ -78,16 +79,19 @@ def register():
 
 @app.route('/logout', methods = ['GET'])
 def logout():
+    '''Logs user out'''
     if 'user' in session:
         session.pop('user')
     return redirect(url_for('home'))
 
 @app.route("/home")
 def home():
+    '''renders the user's homepage'''
     #checks if the user is not logged in
     if 'user' not in session:
         return redirect(url_for('login'))
     name=session['user']
+    #returns the user's favorite teams 
     favorites = db.get_favorites(name)
     favorites = fav.organize_by_league(favorites)
     return render_template(
@@ -119,6 +123,7 @@ def league_page(league):
 
 @app.route('/favorite', methods=['POST'])
 def favorite():
+    '''adds favorites to the database'''
     if 'favdata' not in request.form:
         return redirect('/')
     data = request.form['favdata']
@@ -128,6 +133,7 @@ def favorite():
 
 @app.route('/unfavorite', methods=['POST'])
 def unfavorite():
+    '''removes favorites from the database'''
     if 'unfav' not in request.form:
         return redirect('/')
     data = request.form['unfav']
@@ -137,15 +143,17 @@ def unfavorite():
 
 @app.route("/<league>/team/<team_name>")
 def teams(league,team_name):
+    '''page for the team's info'''
     if 'user' not in session:
         return redirect(url_for('login'))
     if league.lower() not in LEAGUES:
         return redirect(url_for('home'))
+    #gets the current and past games and the team's players
     league_games = msf.get_full_schedule(league)
     games = msf.reorder_schedule_by_team(league_games,team_name)
     players = msf.get_all_players_by_team(league,team_name)
     played_games = msf.get_played_games_win_loss(league,team_name)
-
+    #gets user's current bets
     users_bets = db.get_bets(session['user'])
     Gid = []
     for bet in users_bets:
@@ -164,6 +172,7 @@ def teams(league,team_name):
 
 @app.route("/<league>/game/<game_id>")
 def game(league,game_id):
+    '''shows the stats of the chosen game'''
     if 'user' not in session:
         return redirect(url_for('login'))
     boxscore = msf.get_boxscore(league,game_id)
@@ -206,6 +215,7 @@ def game(league,game_id):
 
 @app.route("/Make_bets/<league>/<game_id>/<home>/<away>")
 def Makebets(league, game_id, home, away):
+    '''lets users place bets'''
     if 'user' not in session:
         return redirect(url_for('login'))
     return render_template('makeBets.html', league=league, game_id = game_id, homeTeam = home, awayTeam= away,name = session['user'], balance = session['balance'])
@@ -231,24 +241,29 @@ def Authbets(league, game_id, home, away):
         flash("The amount you bet is too little... Try again!")
         return render_template('makeBets.html', league=league, game_id = game_id, homeTeam = home, awayTeam= away,name = session['user'], balance = session['balance'])
     else:
+        #adds bets to database
         db.add_bets(session['user'], amount, league, int(game_id), team)
         val = user_bal - amount
         print(val)
         db.update_balance(session['user'], val)
         session['balance'] = val
+        #returns placed bets
         all_bets = db.get_bets(session['user'])
         return redirect(url_for("bet_already"))
 
 
 @app.route("/your_bets")
 def bet_already():
+    '''shows user's bets'''
     if 'user' not in session:
         return redirect(url_for('login'))
+    #returns placed bets
     all_bets = db.get_bets(session['user'])
     return render_template('bets.html', bets_made = all_bets, name =session['user'], balance =session['balance'] )
 
 #regular funciton
 def check_bet_updates(username_input):
+    #checks status of bets and adds to balance if the bet won
     users_bets = db.get_bets(username_input)
     for bet in users_bets:
         game_id = str(bet[3])
