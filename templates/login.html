@@ -12,18 +12,18 @@ Login
 
   {% set msgs = get_flashed_messages() %}
   {% for each in msgs %}
-  <div class="alert alert-danger" role="alert">
+  <div class="alert alert-danger" role="alert" style="width: 600px; height: 50px; margin: 0 auto; margin-top: 25px;">
     {{each}}
   </div>
   {% endfor %}
 
-  <form action="/auth" method="POST">
-    <input type="text" name="username" placeholder="Username"><br>
+  <form action="/auth" method="POST" style="width: 700px; margin: 0 auto; text-align: center; padding-top: 250px; padding-bottom: 25px;">
+    <input type="text" name="username" placeholder="Username" style="margin-bottom: 10px;"><br>
     <input type="password" name="password" placeholder="Password"><br><br>
-    <button type="submit" class="btn btn-primary"> Login </button>
-    <a href="/register">
-      <button type="button" class="btn btn-primary"> Register </button>
+    <a href="/">
+      <button type="button" class="btn btn-primary" style="margin-right: 10px;"> Cancel </button>
     </a>
+    <button type="submit" class="btn btn-primary"> Login </button>
   </form>
 
 {% endblock %}
