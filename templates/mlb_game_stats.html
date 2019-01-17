@@ -10,7 +10,7 @@ Always Be a Good Sport
 
 {% block content %}
     {% for i in range(2) %}
-        <div class="row team_heading">
+        <div class="row team_heading" style="margin-left: 2px;">
             {{boxscore[['homeName','awayName'][i]]}}
         </div>
         <table class="table" id="{{'mlb_boxscore' + i|string}}">
