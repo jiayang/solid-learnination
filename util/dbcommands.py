@@ -121,7 +121,13 @@ def update_balance(username, New_val):
     db.commit()
     db.close()
 
-
+def remove_bet(username, game_id):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    command = 'DELETE FROM bets WHERE username = ? AND gameID = ?'
+    c.execute(command, (username, game_id))
+    db.commit()
+    db.close()
 
 # MAKE TABLES AND DATABASE IF THEY DONT EXIST
 db = sqlite3.connect(DB_FILE)

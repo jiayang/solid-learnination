@@ -255,6 +255,8 @@ def check_bet_updates(username_input):
         league = bet[2]
         team_name = bet[4]
         played_games = msf.get_played_games_win_loss(league,team_name)
+        if played_games == None:
+            break
         if game_id in played_games:
             db.remove_bet(session['user'],game_id)
             game_info = played_games[game_id]
@@ -263,7 +265,7 @@ def check_bet_updates(username_input):
                 #add double
                 #flash
                 cur_bal = session['balance']
-                to_add = bets[1] * 2
+                to_add = bet[1] * 2
                 cur_bal += to_add
                 session['balance'] = cur_bal
                 db.update_balance(session['user'],cur_bal)
