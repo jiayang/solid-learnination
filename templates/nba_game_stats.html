@@ -17,13 +17,15 @@ Always Be a Good Sport
         <table class="table table-hover" id="{{'nba_boxscore' + i|string}}">
             <thead class="thead-dark">
             <tr>
-                {% for j in range(10) %}
-                <th id="{{j|string + i|string}}"> {{['Player','MIN','PTS','FGM','FGA','REB','AST','STL','BLK','+/-'][j]}} </th>
+                <!-- Create the headers -->
+                <th id="{{'0' + i|string}}"> Player ⇑</th>
+                {% for j in range(9) %}
+                <th id="{{(j+1)|string + i|string}}"> {{['MIN','PTS','FGM','FGA','REB','AST','STL','BLK','+/-'][j]}} </th>
                 {% endfor %}
             </tr>
             </thead>
             {# Scores #}
-
+            <!-- For each player, enter the stats -->
             {% for player in boxscore[['homeTeam','awayTeam'][i]][['homePlayers','awayPlayers'][i]]['playerEntry'] %}
             <tr>
                 <td> {{player['player']['FirstName'] + ' ' + player['player']['LastName']}} </td>

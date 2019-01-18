@@ -10,14 +10,17 @@ Always Be a Good Sport
 
 {% block content %}
     {% for i in range(2) %}
+    <div class="container">
         <div class="row team_heading" style="margin-left: 2px;">
             {{boxscore[['homeName','awayName'][i]]}}
         </div>
         <table class="table" id="{{'nfl_boxscore' + i|string}}">
             <thead class="thead-dark">
             <tr>
-                {% for j in range(10) %}
-                <th id="{{j|string + i|string}}"> {{['Player','PASS COMPLETED','PASS ATTEMPTS','YDS','TD','SACKS','TFL','TOTAL TACKLES','FUM','TGT'][j]}} </th>
+                <!-- Create the headers -->
+                <th id="{{'0' + i|string}}"> Player ⇑</th>
+                {% for j in range(9) %}
+                <th id="{{(j+1)|string + i|string}}"> {{'PASS COMPLETED','PASS ATTEMPTS','YDS','TD','SACKS','TFL','TOTAL TACKLES','FUM','TGT'][j]}} </th>
                 {% endfor %}
             </tr>
             </thead>
@@ -26,16 +29,20 @@ Always Be a Good Sport
             {% for player in boxscore[['homeTeam','awayTeam'][i]][['homePlayers','awayPlayers'][i]]['playerEntry'] %}
             <tr>
                 <td> {{player['player']['FirstName'] + ' ' + player['player']['LastName']}} </td>
+                <!-- For all the stat headings -->
                 {% for h in ['PassCompletions','PassAttempts','yds','tds','Sacks','TacklesForLoss','TackleTotal','Fumbles','Targets'] %}
+                <!-- If the stat exists. This check is because not all players have the same stat categories. -->
                 {% if h in player['stats'] %}
                 <td> {{player['stats'][h]['#text']}} </td>
                 {% elif h == 'yds' %}
+                    <!-- If the stat is yards, check if the player is a passer because they have different "yards" -->
                     {% if 'PassAttempts' in player['stats'] %}
                         {% set total = namespace(t = 0) %}
                         {% for stat in ['PassYards','RushYards','RecYards'] %}
                             {% set total.t = total.t + player['stats'][stat]['#text']|int %}
                         {% endfor %}
                         <td> {{total.t}} </td>
+                    <!-- If the player is not a passer, add their types of yards -->
                     {% else %}
                         {% set total = namespace(t = 0) %}
                         {% for stat in ['SackYds','IntYds','StuffYds','KrYds','PrYds'] %}
@@ -44,6 +51,7 @@ Always Be a Good Sport
                         <td> {{total.t}} </td>
                     {% endif %}
                 {% elif h == 'tds' %}
+                    <!-- Repeat the same as above but for touchdowns instead -->
                     {% if 'PassAttempts' in player['stats'] %}
                         {% set total = namespace(t=0) %}
                         {% for stat in ['PassTD','RushTD','RecTD','FumTD','IntTD','KrTD','PrTD'] %}
@@ -64,6 +72,7 @@ Always Be a Good Sport
             </tr>
             {% endfor %}
         </table>
+    </div>
     {% endfor %}
 
     <script src='../../static/player_sort.js'></script>
