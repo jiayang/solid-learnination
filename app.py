@@ -289,5 +289,4 @@ def check_bet_updates(username_input):
                 pass
 
 if __name__ == "__main__":
-    app.debug = True
     app.run()
