@@ -5,7 +5,10 @@
 P02: The End
 
 ## Description
-Always Be A Good Sport is a website to check your favorite team's statistics and schedule. By using the MySportsFeeds API, we are able to provide stats from the NBA, NFL, NHL, and MLB for the user. Users can save their favorite teams and see their schedules from the homepage. In the individual stat-sheets for specific games, we allow user interactivity, like organizing the table by a certain header, by using JavaScript. 
+Always Be A Good Sport is a website to check your favorite team's statistics and schedule. By using the MySportsFeeds API, we are able to provide stats from the NBA, NFL, NHL, and MLB for the user. Users can save their favorite teams and see their schedules from the homepage. In the individual stat-sheets for specific games, we allow user interactivity, like organizing the table by a certain header, by using JavaScript.
+
+## Demo
+View [our video demo here](https://youtu.be/2cLTXoBGo7I).
 
 ## How To Run
 
