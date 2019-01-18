@@ -147,6 +147,11 @@ Created betting page where users can choose which team they
 want to bet for and how much. Added css to the betting page.
 ==============================================================
 
+johalP -- 2019-01-17 12:01
+--------------------------------------------------------------
+Added styling to CSS templates.
+==============================================================
+
 jabirC-- 2019-01-17 01:05
 --------------------------------------------------------------
 Created several dbcommands function to facilitate communication
