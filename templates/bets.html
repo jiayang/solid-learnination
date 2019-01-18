@@ -7,25 +7,23 @@ Always Be a Good Sport
 {% endblock %}
 
 {% block content %}
+<div class = "container-fluid" style="margin-left: 35%;margin-top: 100px;">
 <div>
-  <div>
   <div class="row" style="margin-top: 50px;">
-      <div class="col-sm-1 game_info"> </div>
-      <div class="col-sm-1 game_info" style="border:1px solid #cecece;background-color: coral;">
+      <div class="col-sm-1 game_info" style="border:1px solid #cecece;background-color: skyblue;">
           League
       </div>
-      <div class="col-sm-1 game_info" style="border:1px solid #cecece;background-color: coral;">
+      <div class="col-sm-1 game_info" style="border:1px solid #cecece;background-color: skyblue;">
           Team
       </div>
-      <div class="col-sm-1 game_info" style="border:1px solid #cecece;background-color: coral;">
+      <div class="col-sm-1 game_info" style="border:1px solid #cecece;background-color: skyblue;">
           Amount Bet
       </div>
   </div>
   {% for bets in bets_made %}
   <div class="row">
-      <div class="col-sm-1 game_info"> </div>
       <div class="col-sm-1 game_info" style="border:1px solid #cecece;">
-          {{bets[2]}}
+          {{bets[2]|upper}}
       </div>
       <div class="col-sm-1 game_info" style="border:1px solid #cecece;">
           {{bets[4]}}
@@ -34,11 +32,9 @@ Always Be a Good Sport
           $ {{bets[1]}}
       </div>
   </div>
-  </div>
+ {% endfor %}
+ </div>
 </div>
-<!-- # [('joe', 300, 'nfl', 45266, 'cavaliers'), ('joe', 300, 'nfl', 45266, 'cavaliers'), ('joe', 308, 'nfl', 452, 'caiers')] -->
-
-{% endfor %}
 
 
 {% endblock %}
